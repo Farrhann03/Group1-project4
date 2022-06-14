@@ -3,6 +3,14 @@ import React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import OnBoardScreen from './src/screens/OnBoardScreen';
+import { StatusBar } from 'expo-status-bar';
+import { StyleSheet, Text, View } from 'react-native';
+import LogInScreen from './src/screens/SignInSignUp/LogInScreen';
+import SignUpScreen from './src/screens/SignInSignUp/SignUpScreen';
+import HomeScreen from './src/screens/HomeScreen';
+import DetailsScreen from './src/screens/DetailsScreen';
+import { AsyncStorageStatic } from 'react-native';
+
 const Stack = createStackNavigator();
 
 const App = () => {
@@ -10,6 +18,8 @@ const App = () => {
     <NavigationContainer>
       <Stack.Navigator screenOptions={{headerShown: false}}>
         <Stack.Screen name="OnBoard" component={OnBoardScreen} />
+        <Stack.Screen name="HomeScreen" component={HomeScreen} />
+        <Stack.Screen name="DetailsScreen" component={DetailsScreen} />
       </Stack.Navigator>
     </NavigationContainer>
   )

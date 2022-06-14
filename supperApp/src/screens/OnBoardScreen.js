@@ -1,5 +1,6 @@
 import React from 'react';
 import {View, StyleSheet, ImageBackground, StatusBar, Text} from 'react-native';
+import { TouchableOpacity } from 'react-native-gesture-handler';
 import { Colors } from 'react-native/Libraries/NewAppScreen';
 import COLORS from '../consts/colors';
 const OnBoardScreen = ({navigation}) => {
@@ -19,9 +20,12 @@ const OnBoardScreen = ({navigation}) => {
             <Text style={style.desc}>
                 Lorem ipsum crap that i'm lazy to even google at this point i'm seriously just questioning life.
             </Text>
+            <TouchableOpacity activeOpacity={0.8} 
+            onPress={()=>navigation.navigate("HomeScreen")}>
             <View style={style.btn}>
                 <Text style={{fontWeight: 'bold'}}>Get Started</Text>
             </View>
+            </TouchableOpacity>
         </View>
         </ImageBackground>
     </View>
@@ -39,7 +43,7 @@ const style = StyleSheet.create({
         color: 'white',
         lineHeight: 25,
         marginTop: 15,
-        backgroundColor: 'black'
+        backgroundColor: '#D95FAA'
     },
     btn: {
         height: 50,
