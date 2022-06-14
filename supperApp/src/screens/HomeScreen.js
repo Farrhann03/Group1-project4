@@ -1,3 +1,4 @@
+//Whole code for this screen is used for viewing, Farhan. can be commented out when working on this page.
 import React from "react";
 import { StyleSheet, SafeAreaView, StatusBar, View, Text, ScrollView } from "react-native";
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
