@@ -5,6 +5,7 @@ import COLORS from '../../consts/colors';
 import Input from '../SignInSignUp/components/Input';
 import Button from '../SignInSignUp/components/Button';
 import Loader from '../SignInSignUp/components/Loader';
+import axios from 'axios';
 
 const LogInScreen = ({navigation}) => {
 
@@ -39,21 +40,43 @@ const LogInScreen = ({navigation}) => {
         }
     };
 
+    // Local storage login testing
+    // const logIn = () => {
+    //     setLoading(true);
+    //     setTimeout( async () => {
+    //         setLoading(false);
+    //         let userData = await AsyncStorage.getItem("user");
+    //         if(userData) {
+    //             userData = JSON.parse(userData);
+    //             if(inputs.email == userData.email && inputs.password == userData.password){
+    //                 AsyncStorage.setItem("user", JSON.stringify({...userData, loggedIn: true}),
+    //                 );
+    //                 navigation.navigate("HomeScreen");
+    //             } else {
+    //                 Alert.alert("Error", "Invalid input")
+    //             }
+    //         } else {
+    //             Alert.alert("Error", "User does not exist!")
+    //         }
+    //     }, 1500);
+    // };
+
     const logIn = () => {
         setLoading(true);
         setTimeout( async () => {
             setLoading(false);
-            let userData = await AsyncStorage.getItem("user");
+            try {
+            let userData = await axios.post("user","https://supper-makan-apa.herokuapp.com/login/signin");
             if(userData) {
                 userData = JSON.parse(userData);
                 if(inputs.email == userData.email && inputs.password == userData.password){
-                    AsyncStorage.setItem("user", JSON.stringify({...userData, loggedIn: true}),
+                    axios.post("user","https://supper-makan-apa.herokuapp.com/login/signin", JSON.stringify({...userData, loggedIn: true}),
                     );
                     navigation.navigate("HomeScreen");
                 } else {
                     Alert.alert("Error", "Invalid input")
                 }
-            } else {
+            }  } catch {
                 Alert.alert("Error", "User does not exist!")
             }
         }, 1500);
@@ -79,7 +102,10 @@ const LogInScreen = ({navigation}) => {
                 <Input placeholder="Enter your email address" iconName="email-outline" label="Email" error={errors.email} onFocus={() => { handleError(null, "email");}} onChangeText={(text) => handleOnChange(text, 'email')}/>
                 <Input placeholder="Enter your password" iconName="lock-outline" label="Password" error={errors.password} onFocus={() => { handleError(null, "password");}} onChangeText={(text) => handleOnChange(text, 'password')} password />
                 <Button  title="Login" onPress={validate} />
-                <Text onPress={() => navigation.navigate('SignUpScreen')} style={styles.loginText}>Yet to create an account? Sign Up</Text>
+                <Text>
+                    <Text style={styles.loginsubText}>Yet to create an account?</Text>
+                    <Text onPress={() => navigation.navigate('SignUpScreen')} style={styles.loginText}>Sign Up</Text>
+                </Text>
             </View>
         </ScrollView>
     </SafeAreaView>
@@ -103,8 +129,12 @@ const styles = StyleSheet.create({
     },
     loginText: {
         color: COLORS.black,
-        fontSize: 16,
+        fontSize: 14,
         fontWeight: "bold",
+    },
+    loginsubText: {
+        color: COLORS.black,
+        fontSize: 12,
     }
 });
 

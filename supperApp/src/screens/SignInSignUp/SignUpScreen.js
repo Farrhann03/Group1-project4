@@ -1,6 +1,7 @@
+import axios from 'axios';
 import React from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { SafeAreaView, StyleSheet, ScrollView, Text, View, Alert } from "react-native";
+import { SafeAreaView, StyleSheet, ScrollView, Text, View, Alert, InputAccessoryView } from "react-native";
 import COLORS from '../../consts/colors';
 import Input from '../SignInSignUp/components/Input';
 import Button from '../SignInSignUp/components/Button';
@@ -10,16 +11,33 @@ const SignUpScreen = ({navigation}) => {
 
     //inputs for fields
     const [inputs, setInputs] = React.useState({
+        username: "",
         email: "",
-        fullname: "",
         password: "",
     });
+
+    //input for username, email and password
+    // const [username, setUsername] = React.useState("");
+    // const [email, setEmail] = React.useState("");
+    // const [password, setPassword] = React.useState("");
+
+    //function for username, email and password
+    // const onChangeInputHandler = (username, email, password) => {
+    //     setUsername(username);
+    //     setEmail(email);
+    //     setPassword(password);
+    // }
 
     //input errors
     const [errors, setErrors] = React.useState({});
 
     //handle loading 
     const [loading, setLoading] = React.useState(false);
+
+    //handle onChange for inputs to setInputs
+    // const onChangeInputHandler = (inputs) => {
+    //     setInputs(inputs);
+    // };
 
     //To validate key fields
     const validate = () => {
@@ -32,8 +50,8 @@ const SignUpScreen = ({navigation}) => {
             handleError("Please input valid email", "email");
             valid = false;
         }
-        if(!inputs.fullname) {
-            handleError("Please input name", "fullname");
+        if(!inputs.username) {
+            handleError("Please input username", "username");
             valid = false;
         }
         if(!inputs.password) {
@@ -49,17 +67,66 @@ const SignUpScreen = ({navigation}) => {
         }
     };
 
+    //Validation of email password and username
+    // const validate = () => {
+
+    //     let valid = true;
+    //     if(!email) {
+    //         handleError("Please input email", "email");
+    //         valid = false;
+    //     } else if (!email.match(/\S+@\S+\.\S+/)) {
+    //         handleError("Please input valid email", "email");
+    //         valid = false;
+    //     }
+    //     if(!username) {
+    //         handleError("Please input username", "username");
+    //         valid = false;
+    //     }
+    //     if(!password) {
+    //         handleError("Please input password", "password");
+    //         valid = false;
+    //     } else if (password.length < 5) {
+    //         handleError("Minimum password length of 5", "password");
+    //         valid = false;
+    //     }
+
+    //     if (valid) {
+    //         signUp();
+    //     }
+    // };
+
+    //Local storage test code
+    // const signUp = () => {
+    //     setLoading(true);
+    //     setTimeout(() => {
+    //         setLoading(false);
+
+    //         try {
+    //             AsyncStorage.setItem("user", JSON.stringify(inputs))
+    //             navigation.navigate("LogInScreen");
+    //         } catch (error){
+    //             Alert.alert("Error", "Something went wrong")
+    //         }
+    //     }, 1500);
+    // }
+
+
+
     const signUp = () => {
         setLoading(true);
-        setTimeout(() => {
+        setTimeout( async () => {
             setLoading(false);
 
             try {
-                AsyncStorage.setItem("user", JSON.stringify(inputs))
+                await axios.post("https://supper-makan-apa.herokuapp.com/login/signup",{
+                   username: inputs.username,
+                   email: inputs.email,
+                   password: inputs.password,
+                });
                 navigation.navigate("LogInScreen");
-            } catch (error){
+            } catch(error) {
                 Alert.alert("Error", "Something went wrong")
-            }
+            } 
         }, 1500);
     }
 
@@ -81,10 +148,16 @@ const SignUpScreen = ({navigation}) => {
             <Text style={styles.textSubHeader}>Enter Details to Sign Up.</Text>
             <View style={{marginVertical: 20}}>
                 <Input placeholder="Enter your email address" iconName="email-outline" label="Email" error={errors.email} onFocus={() => { handleError(null, "email");}} onChangeText={(text) => handleOnChange(text, 'email')}/>
-                <Input placeholder="Enter your name" iconName="account-outline" label="Fullname" error={errors.fullname} onFocus={() => { handleError(null, "fullname");}} onChangeText={(text) => handleOnChange(text, 'fullname')}/>
+                <Input placeholder="Enter your username" iconName="account-outline" label="Username" error={errors.username} onFocus={() => { handleError(null, "username");}} onChangeText={(text) => handleOnChange(text, 'username')}/>
                 <Input placeholder="Enter your password" iconName="lock-outline" label="Password" error={errors.password} onFocus={() => { handleError(null, "password");}} onChangeText={(text) => handleOnChange(text, 'password')} password />
+                {/* <Input placeholder="Enter your email address" iconName="email-outline" label="Email" error={email} onChangeText={(text) => onChangeInputHandler(email)}/>
+                <Input placeholder="Enter your username" iconName="account-outline" label="Username" error={username} onChangeText={(text) => onChangeInputHandler(username)}/>
+                <Input placeholder="Enter your password" iconName="lock-outline" label="Password" error={password}  onChangeText={(text) => onChangeInputHandler(password)} password /> */}
                 <Button  title="Sign Up" onPress={validate} />
-                <Text onPress={() => navigation.navigate('LogInScreen')} style={styles.loginText}>Already have an account? Login</Text>
+                <Text>                
+                    <Text style={styles.loginsubText}>Already have an account?</Text>
+                    <Text onPress={() => navigation.navigate('LogInScreen')} style={styles.loginText}>Log in</Text>
+                </Text>
             </View>
         </ScrollView>
     </SafeAreaView>
@@ -108,8 +181,12 @@ const styles = StyleSheet.create({
     },
     loginText: {
         color: COLORS.black,
-        fontSize: 16,
+        fontSize: 14,
         fontWeight: "bold",
+    },
+    loginsubText: {
+        color: COLORS.black,
+        fontSize: 12,
     }
 });
 
