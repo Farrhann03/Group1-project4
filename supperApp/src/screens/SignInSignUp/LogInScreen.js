@@ -79,7 +79,7 @@ const LogInScreen = ({navigation}) => {
                 <Input placeholder="Enter your email address" iconName="email-outline" label="Email" error={errors.email} onFocus={() => { handleError(null, "email");}} onChangeText={(text) => handleOnChange(text, 'email')}/>
                 <Input placeholder="Enter your password" iconName="lock-outline" label="Password" error={errors.password} onFocus={() => { handleError(null, "password");}} onChangeText={(text) => handleOnChange(text, 'password')} password />
                 <Button  title="Login" onPress={validate} />
-                <Text onPress={() => navigation.navigate('RegisterScreen')} style={styles.loginText}>Yet to create an account? Sign Up</Text>
+                <Text onPress={() => navigation.navigate('SignUpScreen')} style={styles.loginText}>Yet to create an account? Sign Up</Text>
             </View>
         </ScrollView>
     </SafeAreaView>
