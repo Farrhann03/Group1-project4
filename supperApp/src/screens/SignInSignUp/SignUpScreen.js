@@ -6,9 +6,10 @@ import COLORS from '../../consts/colors';
 import Input from '../SignInSignUp/components/Input';
 import Button from '../SignInSignUp/components/Button';
 import Loader from '../SignInSignUp/components/Loader';
+import Icon from "react-native-vector-icons/MaterialIcons";
 
 const SignUpScreen = ({navigation}) => {
-
+    
     //inputs for fields
     const [inputs, setInputs] = React.useState({
         username: "",
@@ -140,6 +141,12 @@ const SignUpScreen = ({navigation}) => {
 
     return (
     <SafeAreaView style={styles.container}>
+        <Icon 
+          name="arrow-back-ios" 
+          size={28} 
+          color={COLORS.primary2} 
+          onPress={navigation.goBack}
+         />           
         <Loader  visible={loading}/>
         <ScrollView contentContainerStyle={{paddingTop: 50, paddingHorizontal: 20,}}>
             <Text style={styles.textHeader}>Sign Up</Text>

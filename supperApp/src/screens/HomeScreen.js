@@ -4,6 +4,7 @@ import { TouchableOpacity } from "react-native-gesture-handler";
 import Icon from "react-native-vector-icons/MaterialIcons";
 import COLORS from "../consts/colors";
 import places from '../consts/places';
+import SignUpScreen from '../screens/SignInSignUp/SignUpScreen'
 import recommend from "../consts/recommended";
 const {width} = Dimensions.get('screen');
 
@@ -22,6 +23,14 @@ const HomeScreen = ({navigation}) => {
                 </View >
             ))}
         </View>
+    }
+
+    const LogIN =({SignUpScreen}) =>{
+        return (
+            <TouchableOpacity activeOpacity={0.8} onPress={()=>navigation.navigate("SignUpScreen", SignUpScreen)}>
+            <Icon name="person" size={28} color={COLORS.white}/>
+        </TouchableOpacity>
+        )
     }
 
 const Card = ({place}) => {
@@ -107,7 +116,7 @@ const Card = ({place}) => {
     return <SafeAreaView style={{flex:1, backgroundColor: COLORS.white}}>
         <StatusBar translucent={false} backgroundColor={COLORS.white}/>
         <View style={style.header}>
-            <Icon name="person" size={28} color={COLORS.white} />
+            <LogIN />
             <Icon name="filter-alt" size={28} color={COLORS.white} />
         </View>
         <ScrollView showsVerticalScrollIndicator={false}>
