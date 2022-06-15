@@ -11,8 +11,8 @@ const LogInScreen = ({navigation}) => {
 
     //inputs for fields
     const [inputs, setInputs] = React.useState({
+        username: "",
         email: "",
-        fullname: "",
         password: "",
     });
 
@@ -26,8 +26,8 @@ const LogInScreen = ({navigation}) => {
     const validate = () => {
 
         let valid = true;
-        if(!inputs.email) {
-            handleError("Please input email", "email");
+        if(!inputs.username) {
+            handleError("Please input username", "username");
             valid = false;
         }
         if(!inputs.password) {
@@ -61,6 +61,7 @@ const LogInScreen = ({navigation}) => {
     //     }, 1500);
     // };
 
+    //Original logIn
     const logIn = () => {
         setLoading(true);
         setTimeout( async () => {
@@ -69,7 +70,7 @@ const LogInScreen = ({navigation}) => {
             let userData = await axios.post("user","https://supper-makan-apa.herokuapp.com/login/signin");
             if(userData) {
                 userData = JSON.parse(userData);
-                if(inputs.email == userData.email && inputs.password == userData.password){
+                if(inputs.username == userData.username && inputs.password == userData.password){
                     axios.post("user","https://supper-makan-apa.herokuapp.com/login/signin", JSON.stringify({...userData, loggedIn: true}),
                     );
                     navigation.navigate("HomeScreen");
@@ -81,6 +82,32 @@ const LogInScreen = ({navigation}) => {
             }
         }, 1500);
     };
+
+    //logIn fix attempt
+    // const logIn = () => {
+    //     setLoading(true);
+    //     setTimeout( async () => {
+    //         setLoading(false);
+    //         try {
+    //         let userData = await axios.get(`https://supper-makan-apa.herokuapp.com/login/user/${userId}`, {
+    //             username: inputs.username,
+    //             password: inputs.password,
+    //         });
+    //         if(userData) {
+    //             userData = JSON.parse(userData);
+    //             if(inputs.username == userData.username && inputs.password == userData.password){
+    //                 axios.post("https://supper-makan-apa.herokuapp.com/login/signin", JSON.stringify({...userData, loggedIn: true}),
+    //                 );
+    //                 navigation.navigate("HomeScreen");
+    //             } else {
+    //                 Alert.alert("Error", "Invalid input")
+    //             }
+    //         }  } catch {
+    //             Alert.alert("Error", "User does not exist!")
+    //         }
+    //     }, 1500);
+    // };
+
 
     //to handle change in input fields
     const handleOnChange = (text, input) => {
@@ -99,7 +126,7 @@ const LogInScreen = ({navigation}) => {
             <Text style={styles.textHeader}>Login</Text>
             <Text style={styles.textSubHeader}>Enter Login Details.</Text>
             <View style={{marginVertical: 20}}>
-                <Input placeholder="Enter your email address" iconName="email-outline" label="Email" error={errors.email} onFocus={() => { handleError(null, "email");}} onChangeText={(text) => handleOnChange(text, 'email')}/>
+                <Input placeholder="Enter your username" iconName="account-outline" label="Username" error={errors.username} onFocus={() => { handleError(null, "username");}} onChangeText={(text) => handleOnChange(text, 'username')}/>
                 <Input placeholder="Enter your password" iconName="lock-outline" label="Password" error={errors.password} onFocus={() => { handleError(null, "password");}} onChangeText={(text) => handleOnChange(text, 'password')} password />
                 <Button  title="Login" onPress={validate} />
                 <Text>
