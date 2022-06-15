@@ -62,41 +62,19 @@ const LogInScreen = ({navigation}) => {
     // };
 
     //Original logIn
-    const logIn = () => {
-        setLoading(true);
-        setTimeout( async () => {
-            setLoading(false);
-            try {
-            let userData = await axios.post("user","https://supper-makan-apa.herokuapp.com/login/signin");
-            if(userData) {
-                userData = JSON.parse(userData);
-                if(inputs.username == userData.username && inputs.password == userData.password){
-                    axios.post("user","https://supper-makan-apa.herokuapp.com/login/signin", JSON.stringify({...userData, loggedIn: true}),
-                    );
-                    navigation.navigate("HomeScreen");
-                } else {
-                    Alert.alert("Error", "Invalid input")
-                }
-            }  } catch {
-                Alert.alert("Error", "User does not exist!")
-            }
-        }, 1500);
-    };
-
-    //logIn fix attempt
     // const logIn = () => {
     //     setLoading(true);
     //     setTimeout( async () => {
     //         setLoading(false);
     //         try {
-    //         let userData = await axios.get(`https://supper-makan-apa.herokuapp.com/login/user/${userId}`, {
-    //             username: inputs.username,
-    //             password: inputs.password,
+    //         let userData = await axios.post("user","https://supper-makan-apa.herokuapp.com/login/signin", {
+    //             username: "Farhan10",
+    //             password: "12345",
     //         });
     //         if(userData) {
     //             userData = JSON.parse(userData);
     //             if(inputs.username == userData.username && inputs.password == userData.password){
-    //                 axios.post("https://supper-makan-apa.herokuapp.com/login/signin", JSON.stringify({...userData, loggedIn: true}),
+    //                 axios.post("user","https://supper-makan-apa.herokuapp.com/login/signin", JSON.stringify({...userData, loggedIn: true}),
     //                 );
     //                 navigation.navigate("HomeScreen");
     //             } else {
@@ -108,6 +86,24 @@ const LogInScreen = ({navigation}) => {
     //     }, 1500);
     // };
 
+    //logIn fix attempt
+    const logIn = async () => {
+        setLoading(true);
+        
+        try{
+            const requestData = {
+                username:inputs.username,
+                password:inputs.password
+            }
+            const userData = await axios.post("https://supper-makan-apa.herokuapp.com/login/signin", requestData);
+            navigation.navigate("HomeScreen");        
+            console.log("Logged in successfully", JSON.stringify({...userData, loggedIn: true}));
+        }catch(e){
+            console.error("Logged in failed", JSON.stringify(e, {...userData, loggedIn: false}));
+        }
+        setLoading(false);
+        
+    };
 
     //to handle change in input fields
     const handleOnChange = (text, input) => {

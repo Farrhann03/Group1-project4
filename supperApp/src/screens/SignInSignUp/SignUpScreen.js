@@ -112,10 +112,8 @@ const SignUpScreen = ({navigation}) => {
 
 
 
-    const signUp = () => {
+    const signUp = async () => {
         setLoading(true);
-        setTimeout( async () => {
-            setLoading(false);
 
             try {
                 await axios.post("https://supper-makan-apa.herokuapp.com/login/signup",{
@@ -127,7 +125,7 @@ const SignUpScreen = ({navigation}) => {
             } catch(error) {
                 Alert.alert("Error", "Something went wrong")
             } 
-        }, 1500);
+            setLoading(false);
     }
 
     //to handle change in input fields
