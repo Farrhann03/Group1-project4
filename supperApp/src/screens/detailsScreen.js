@@ -11,7 +11,7 @@ const DetailsScreen = ({navigation, route}) => {
             <StatusBar translucent backgroundColor="rgba(0,0,0,0)" />
             <ImageBackground 
                 style={{flex:0.7, backgroundColor: COLORS.dark}} 
-                source={place.image}
+                source={{uri:place.image}}
                 imageStyle={{opacity: 0.7}}>
                     <View style={style.header}>
                         <Icon 

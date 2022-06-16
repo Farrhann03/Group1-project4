@@ -1,7 +1,6 @@
 import axios from "axios";
-import { SafeAreaView, StatusBar, StyleSheet, View, ScrollView, Text, ImageBackground, FlatList, TextInput, Dimensions, Animated } from "react-native";
+import { SafeAreaView, StatusBar, StyleSheet, View, ScrollView, Text, ImageBackground, FlatList, TextInput, Dimensions, Animated, Image } from "react-native";
 import Icon from "react-native-vector-icons/MaterialIcons";
-import places from '../consts/places';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import React, { useEffect, useState } from "react";
 import { TouchableOpacity } from "react-native-gesture-handler";
@@ -55,13 +54,14 @@ const Card = ({place}) => {
         <TouchableOpacity activeOpacity={0.8} onPress={()=>navigation.navigate("DetailsScreen", place)}>
         <ImageBackground
             style={style.cardImage}
-            source={place.image}
+            source={{uri:place.image}}
+            // source={{uri:`${place.image}`}}
             imageStyle={{opacity: 0.7}}>
             {/* // source={place.image} */}
 
                 <Text 
                     style={{
-                        color: COLORS.dark, 
+                        color: COLORS.white, 
                         fontSize: 20, 
                         fontWeight: 'bold',
                         marginTop: 10,
@@ -69,8 +69,8 @@ const Card = ({place}) => {
                     {place.name}
                 </Text>
                 <View style={{flexDirection: 'row'}}>
-                                <Icon name='star' size={20} color={COLORS.dark} />
-                                <Text style={{marginLeft: 5, color:COLORS.dark}}>
+                                <Icon name='star' size={20} color={COLORS.white} />
+                                <Text style={{marginLeft: 5, color:COLORS.white}}>
                                     {/* {place.rating} */}
                                 </Text>
                             </View>
@@ -82,8 +82,8 @@ const Card = ({place}) => {
                         alignItems: 'flex-end'
                         }}>
                             <View style={{flexDirection: 'row'}}>
-                                <Icon name='place' size={20} color={COLORS.dark} />
-                                <Text style={{marginRight: 20, color:COLORS.dark}}>
+                                <Icon name='place' size={20} color={COLORS.white} />
+                                <Text style={{marginRight: 20, color:COLORS.white}}>
                                     {place.address}
                                 </Text>
                             </View>
@@ -228,10 +228,11 @@ const logOut = () => {
 
             setShowMenu(!showMenu);
         }}>
-                
-    
+            
+
             <Icon name="person" size={28} color={COLORS.white}/>
         </TouchableOpacity>
+        <Image style={{width: 17, height: 30, marginTop: 22}} source={require("../assets/Suppermakanapa-icon.png")} />
         <Icon style={{marginTop: 20, marginRight: 5 }} name="filter-alt" size={28} color={COLORS.white} />
     </View>
         <ScrollView showsVerticalScrollIndicator={false}>

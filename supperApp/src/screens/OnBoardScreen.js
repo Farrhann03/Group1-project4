@@ -1,8 +1,9 @@
 import React from 'react';
-import {View, StyleSheet, ImageBackground, StatusBar, Text} from 'react-native';
+import {View, StyleSheet, ImageBackground, StatusBar, Text, Image} from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { Colors } from 'react-native/Libraries/NewAppScreen';
 import COLORS from '../consts/colors';
+
 const OnBoardScreen = ({navigation}) => {
     return (
     <View style={{flex: 1}}>
@@ -11,6 +12,9 @@ const OnBoardScreen = ({navigation}) => {
         style={{flex: 1, backgroundColor: COLORS.dark}}
         source={require('../assets/Brine_001.jpeg')}
         imageStyle={{opacity: 0.7}}>
+            <View>
+                <Image style={{width: 335, height: 250, marginLeft: 55, marginTop: 150}} source={require('../assets/Suppermakanapa-logo.png')}/>
+            </View>
         <View style={style.details}>
             <Text style={{color: COLORS.white, fontSize: 35, fontWeight: 'bold'}}>
                 Bring your palate 
