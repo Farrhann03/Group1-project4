@@ -3,23 +3,32 @@ import { SafeAreaView, StatusBar, StyleSheet, View, ScrollView, Text, ImageBackg
 import Icon from "react-native-vector-icons/MaterialIcons";
 import places from '../consts/places';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import React, { useEffect, useState } from "react";
+import React, { useRef, useEffect, useState } from "react";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import COLORS from "../consts/colors";
-// import places from '../consts/places';
-import SignUpScreen from '../screens/SignInSignUp/SignUpScreen';
+import SignUpScreen from '../screens/SignInSignUp/SignUpScreen'
 import recommend from "../consts/recommended";
-
-
 const {width} = Dimensions.get('screen');
+
 const HomeScreen = ({navigation}) => {
 
     const [places, setPlaces] = useState([]);
 
-    useEffect(()=>{
-        fetch("https://supper-makan-apa.herokuapp.com/public/location").then(res => res.json()).then(data => setPlaces(data));
+    useEffect(() => {
+      fetch("https://supper-makan-apa.herokuapp.com/public/location")
+        .then((res) => res.json())
+        .then((data) => setPlaces(data));
     }, []);
-
+    const [currentTab, setCurrentTab] = useState("Home");
+    // To get the curretn Status of menu ...
+    const [showMenu, setShowMenu] = useState(false);
+  
+    // Animated Properties...
+  
+    const offsetValue = useRef(new Animated.Value(0)).current;
+    // Scale Intially must be One...
+    const scaleValue = useRef(new Animated.Value(1)).current;
+    const closeButtonOffset = useRef(new Animated.Value(0)).current;
     const categoryIcons = [
         <Icon name="fastfood" size={25} color={COLORS.primary2} />,
         <Icon name="local-offer" size={25} color={COLORS.primary2} />,
@@ -43,25 +52,18 @@ const HomeScreen = ({navigation}) => {
         password: "",
     });
 
-    const [showMenu, setShowMenu] = React.useState(false);
-    //Animated properties
-    const offsetValue = React.useRef(new Animated.Value(0)).current;
-    const scaleValue = React.useRef(new Animated.Value(1)).current;
-    const closeButtonOffset = React.useRef(new Animated.Value(0)).current;
+
 
 const Card = ({place}) => {
-    console.log("Card func", place);
     return (
         <TouchableOpacity activeOpacity={0.8} onPress={()=>navigation.navigate("DetailsScreen", place)}>
         <ImageBackground
             style={style.cardImage}
-            source={place.image}
+            source={{uri :place.image}}
             imageStyle={{opacity: 0.7}}>
-            {/* // source={place.image} */}
-
                 <Text 
                     style={{
-                        color: COLORS.dark, 
+                        color: COLORS.white,
                         fontSize: 20, 
                         fontWeight: 'bold',
                         marginTop: 10,
@@ -69,9 +71,9 @@ const Card = ({place}) => {
                     {place.name}
                 </Text>
                 <View style={{flexDirection: 'row'}}>
-                                <Icon name='star' size={20} color={COLORS.dark} />
-                                <Text style={{marginLeft: 5, color:COLORS.dark}}>
-                                    {/* {place.rating} */}
+                                <Icon name='star' size={20} color={COLORS.white} />
+                                <Text style={{marginLeft: 5, color:COLORS.white}}>
+                                    {place.rating}
                                 </Text>
                             </View>
                 <View 
@@ -82,8 +84,8 @@ const Card = ({place}) => {
                         alignItems: 'flex-end'
                         }}>
                             <View style={{flexDirection: 'row'}}>
-                                <Icon name='place' size={20} color={COLORS.dark} />
-                                <Text style={{marginRight: 20, color:COLORS.dark}}>
+                                <Icon name='place' size={20} color={COLORS.white} />
+                                <Text style={{marginRight: 20, color:COLORS.white}}>
                                     {place.address}
                                 </Text>
                             </View>
@@ -232,7 +234,7 @@ const logOut = () => {
     
             <Icon name="person" size={28} color={COLORS.white}/>
         </TouchableOpacity>
-        <Icon style={{marginTop: 20, marginRight: 5 }} name="filter-alt" size={28} color={COLORS.white} />
+        <Icon style={{marginTop: 20, marginRight: 5 }} name="filter-alt" size={28} color={COLORS.white} onPress={()=>navigation.navigate("FilterScreen", places)} />
     </View>
         <ScrollView showsVerticalScrollIndicator={false}>
             <View 
@@ -261,7 +263,7 @@ const logOut = () => {
                     horizontal
                     showsHorizontalScrollIndicator={false}
                     data={places} 
-                    renderItem={({item}) => {console.log("item item", item); return <Card place={item} />}} 
+                    renderItem={({item}) => <Card place={item} />} 
                 />
                 <Text style={style.sectionTitle}>Recommended</Text>
                 <FlatList 
