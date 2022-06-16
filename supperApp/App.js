@@ -10,6 +10,7 @@ import SignUpScreen from './src/screens/SignInSignUp/SignUpScreen';
 import HomeScreen from './src/screens/HomeScreen';
 import DetailsScreen from './src/screens/DetailsScreen';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import RestaurantsScreen from './src/screens/RestaurantsScreen';
 
 
 const Stack = createStackNavigator();
@@ -24,6 +25,8 @@ const App = () => {
         <Stack.Screen name="DetailsScreen" component={DetailsScreen} />
         <Stack.Screen name="SignUpScreen" component={SignUpScreen} />
         <Stack.Screen name="LogInScreen" component={LogInScreen} />
+        {/* <Stack.Screen name="RestaurantsScreen" component={RestaurantsScreen} /> */}
+
 
 
       </Stack.Navigator>
