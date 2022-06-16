@@ -1,14 +1,21 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { SafeAreaView, StatusBar, StyleSheet, View, ScrollView, Text, ImageBackground, FlatList, TextInput, Dimensions } from "react-native";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import Icon from "react-native-vector-icons/MaterialIcons";
 import COLORS from "../consts/colors";
-import places from '../consts/places';
+// import places from '../consts/places';
 import SignUpScreen from '../screens/SignInSignUp/SignUpScreen'
 import recommend from "../consts/recommended";
-const {width} = Dimensions.get('screen');
 
+const {width} = Dimensions.get('screen');
 const HomeScreen = ({navigation}) => {
+
+    const [places, setPlaces] = useState([]);
+
+    useEffect(()=>{
+        fetch("https://supper-makan-apa.herokuapp.com/public/location").then(res => res.json()).then(data => setPlaces(data));
+    }, []);
+
     const categoryIcons = [
         <Icon name="fastfood" size={25} color={COLORS.primary2} />,
         <Icon name="local-offer" size={25} color={COLORS.primary2} />,
@@ -34,6 +41,7 @@ const HomeScreen = ({navigation}) => {
     }
 
 const Card = ({place}) => {
+    console.log("Card func", place);
     return (
         <TouchableOpacity activeOpacity={0.8} onPress={()=>navigation.navigate("DetailsScreen", place)}>
         <ImageBackground
@@ -147,7 +155,7 @@ const Card = ({place}) => {
                     horizontal
                     showsHorizontalScrollIndicator={false}
                     data={places} 
-                    renderItem={({places}) => <Card place={places} />} 
+                    renderItem={({item}) => {console.log("item item", item); return <Card place={item} />}} 
                 />
                 <Text style={style.sectionTitle}>Recommended</Text>
                 <FlatList 

@@ -8,7 +8,7 @@ import { StyleSheet, Text, View } from 'react-native';
 import LogInScreen from './src/screens/SignInSignUp/LogInScreen';
 import SignUpScreen from './src/screens/SignInSignUp/SignUpScreen';
 import HomeScreen from './src/screens/HomeScreen';
-import DetailsScreen from './src/screens/DetailsScreen';
+import DetailsScreen from './src/screens/detailsScreen';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import RestaurantsScreen from './src/screens/RestaurantsScreen';
 
