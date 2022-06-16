@@ -146,6 +146,7 @@ const SignUpScreen = ({navigation}) => {
           size={28} 
           color={COLORS.primary2} 
           onPress={navigation.goBack}
+          style={{paddingLeft: 10}}
          />           
         <Loader  visible={loading}/>
         <ScrollView contentContainerStyle={{paddingTop: 50, paddingHorizontal: 20,}}>

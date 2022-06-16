@@ -1,11 +1,14 @@
+import axios from "axios";
 import React from "react";
-import { SafeAreaView, StatusBar, StyleSheet, View, ScrollView, Text, ImageBackground, FlatList, TextInput, Dimensions } from "react-native";
+import { SafeAreaView, StatusBar, StyleSheet, View, ScrollView, Text, ImageBackground, FlatList, TextInput, Dimensions, Animated } from "react-native";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import Icon from "react-native-vector-icons/MaterialIcons";
 import COLORS from "../consts/colors";
 import places from '../consts/places';
-import SignUpScreen from '../screens/SignInSignUp/SignUpScreen'
 import recommend from "../consts/recommended";
+import AsyncStorage from '@react-native-async-storage/async-storage';
+
+
 const {width} = Dimensions.get('screen');
 
 const HomeScreen = ({navigation}) => {
@@ -25,20 +28,26 @@ const HomeScreen = ({navigation}) => {
         </View>
     }
 
-    const LogIN =({SignUpScreen}) =>{
-        return (
-            <TouchableOpacity activeOpacity={0.8} onPress={()=>navigation.navigate("SignUpScreen", SignUpScreen)}>
-            <Icon name="person" size={28} color={COLORS.white}/>
-        </TouchableOpacity>
-        )
-    }
+    //for account log drawer status and logout
+    const [inputs, setInputs] = React.useState({
+        username: "",
+        email: "",
+        password: "",
+    });
+
+    const [showMenu, setShowMenu] = React.useState(false);
+    //Animated properties
+    const offsetValue = React.useRef(new Animated.Value(0)).current;
+    const scaleValue = React.useRef(new Animated.Value(1)).current;
+    const closeButtonOffset = React.useRef(new Animated.Value(0)).current;
 
 const Card = ({place}) => {
     return (
         <TouchableOpacity activeOpacity={0.8} onPress={()=>navigation.navigate("DetailsScreen", place)}>
         <ImageBackground
             style={style.cardImage}
-            source={place.image}>
+            source={place.image}
+            imageStyle={{opacity: 0.7}}>
                 <Text 
                     style={{
                         color: COLORS.white, 
@@ -77,7 +86,8 @@ const Card = ({place}) => {
      return (
         <ImageBackground 
             style={style.rmCardImage} 
-            source={recommend.image}>
+            source={recommend.image}
+            imageStyle={{opacity: 0.7}}>
             <Text 
                 style={{
                     color: COLORS.white, 
@@ -112,13 +122,107 @@ const Card = ({place}) => {
         </ImageBackground>
      )
  }
+//For Login status and account login/signup
+//  const [userDetails, setUserDetails] = React.useState();
+//  React.useEffect (() => {
+//     getUserDetails();
+//  }, []);
+//  const getUserDetails = async () => {
+//     const requestData = {
+//         username: inputs.username,
+//         email: inputs.email,
+//         password: inputs.password
+//     }
+//     const userData = await axios.post("https://supper-makan-apa.herokuapp.com/login/signin", requestData);
+//     if (userData) {
+//         setUserDetails(JSON.parse(userData));
+//     }
+//  };
 
-    return <SafeAreaView style={{flex:1, backgroundColor: COLORS.white}}>
-        <StatusBar translucent={false} backgroundColor={COLORS.white}/>
-        <View style={style.header}>
-            <LogIN />
-            <Icon name="filter-alt" size={28} color={COLORS.white} />
-        </View>
+//  const logOut = () => {
+//     const requestData = {
+//         username: inputs.username,
+//         email: inputs.email,
+//         password: inputs.password
+//     }
+//     axios.post("https://supper-makan-apa.herokuapp.com/login/signup", 
+//     requestData,
+//     JSON.stringify({...userDetails, loggedIn: false}),);
+//     navigation.navigate("LogInScreen");
+//  }
+
+//Mock up user status and logout
+const [userDetails, setUserDetails] = React.useState();
+React.useEffect(() => {
+    getUserDetails();
+}, []);
+const getUserDetails = async () => {
+    const userData = await AsyncStorage.getItem('user');
+    if (userData) {
+        setUserDetails(JSON.parse(userData));
+    }
+};
+const logOut = () => {
+    AsyncStorage.setItem(
+        'user',
+        JSON.stringify({...userDetails, loggedIn: false}),
+    );
+    navigation.navigate("LogInScreen");
+};
+
+    return  <SafeAreaView style={{flex:1, backgroundColor: COLORS.primary2}}>
+                <StatusBar translucent={false} backgroundColor={COLORS.white}/>
+            <View style={style.accountContainer}>
+                <View>
+                    <Text style={{fontSize: 12, paddingTop: 10, paddingLeft: 15,color: COLORS.white}}>Welcome,</Text>
+                    <Text style={style.accountContainerText}>{userDetails?.username}</Text>
+                </View>
+                <View>
+                    <TouchableOpacity style={{flexDirection: "row", marginTop: 50}} onPress={logOut}>
+                        <Icon style={{marginLeft: 10, marginTop: 9.8}}name="logout" size={28} color={COLORS.white}/>
+                        <Text style={style.accountContainerText}>Log out</Text>
+                    </TouchableOpacity>
+                </View>
+                
+            </View>
+        
+    <Animated.View  style={{
+        flexGrow: 1,
+        backgroundColor: COLORS.white,
+        position: 'absolute',
+        top: 0,
+        bottom: 0,
+        left: 0,
+        right: 0,
+        borderRadius: showMenu ? 15 : 0,
+        transform: [
+            {scale: scaleValue},
+            {translateX: offsetValue}
+        ]
+    }}>
+
+    <View style={style.header}>
+        <TouchableOpacity style={{marginTop: 20, marginLeft: 5 }} activeOpacity={0.8} onPress={()=>{
+            Animated.timing(scaleValue,{ 
+            toValue: showMenu ? 1 : 0.93,
+            duration:300,
+            useNativeDriver: true})
+                .start()
+
+            Animated.timing(offsetValue,{ 
+            toValue: showMenu ? 0 : 130,
+            duration:300,
+            useNativeDriver: true})
+                    .start()
+
+            setShowMenu(!showMenu);
+        }}>
+                
+    
+            <Icon name="person" size={28} color={COLORS.white}/>
+        </TouchableOpacity>
+        <Icon style={{marginTop: 20, marginRight: 5 }} name="filter-alt" size={28} color={COLORS.white} />
+    </View>
         <ScrollView showsVerticalScrollIndicator={false}>
             <View 
                 style={{
@@ -138,7 +242,7 @@ const Card = ({place}) => {
                     </View>
                 </View>
             </View>
-            <ListCategories />
+        <ListCategories />
             <Text style={style.sectionTitle}>Restaurants</Text>
             <View>
                 <FlatList 
@@ -157,8 +261,10 @@ const Card = ({place}) => {
                     data={recommend} 
                     renderItem={({item}) => <RecommendedCard recommend={item}/>} />
             </View>
-        </ScrollView>
+            </ScrollView>
+        </Animated.View>
     </SafeAreaView>;
+
 };
 
 const style = StyleSheet.create({
@@ -173,6 +279,19 @@ const style = StyleSheet.create({
         color: COLORS.white,
         fontWeight: 'bold',
         fontSize: 23,
+    },
+    accountContainer: {
+        flex: 1,
+        backgroundColor: COLORS.primary2,
+        alignItems: "flex-start",
+        justifyContent: "flex-start",
+    },
+    accountContainerText: {
+        fontSize: 15,
+        fontWeight: "bold",
+        paddingTop: 15,
+        paddingLeft: 15,
+        color: COLORS.white,
     },
     inputContainer:{
         height: 60,
@@ -213,6 +332,7 @@ const style = StyleSheet.create({
         padding: 10,
         overflow: 'hidden',
         borderRadius: 10,
+        backgroundColor: COLORS.dark
     },
     rmCardImage: {
         width: width - 40,
@@ -220,7 +340,8 @@ const style = StyleSheet.create({
         marginRight: 20,
         borderRadius: 10, 
         overflow: 'hidden',
-        padding: 10
+        padding: 10,
+        backgroundColor: COLORS.dark
     }
 });
 export default HomeScreen
