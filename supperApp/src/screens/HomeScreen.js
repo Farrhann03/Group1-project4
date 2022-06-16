@@ -11,7 +11,7 @@ import { TouchableOpacity } from "react-native-gesture-handler";
 import Icon from "react-native-vector-icons/MaterialIcons";
 import COLORS from "../consts/colors";
 // import places from '../consts/places';
-import SignUpScreen from '../screens/SignInSignUp/SignUpScreen'
+import SignUpScreen from '../screens/SignInSignUp/SignUpScreen';
 import recommend from "../consts/recommended";
 
 
