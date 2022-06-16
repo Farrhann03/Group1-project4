@@ -50,7 +50,7 @@ const Card = ({place}) => {
             >
                 <Text 
                     style={{
-                        color: COLORS.white, 
+                        color: COLORS.dark, 
                         fontSize: 20, 
                         fontWeight: 'bold',
                         marginTop: 10,
@@ -58,8 +58,8 @@ const Card = ({place}) => {
                     {place.name}
                 </Text>
                 <View style={{flexDirection: 'row'}}>
-                                <Icon name='star' size={20} color={COLORS.white} />
-                                <Text style={{marginLeft: 5, color:COLORS.white}}>
+                                <Icon name='star' size={20} color={COLORS.dark} />
+                                <Text style={{marginLeft: 5, color:COLORS.dark}}>
                                     {/* {place.rating} */}
                                 </Text>
                             </View>
@@ -71,8 +71,8 @@ const Card = ({place}) => {
                         alignItems: 'flex-end'
                         }}>
                             <View style={{flexDirection: 'row'}}>
-                                <Icon name='place' size={20} color={COLORS.white} />
-                                <Text style={{marginRight: 20, color:COLORS.white}}>
+                                <Icon name='place' size={20} color={COLORS.dark} />
+                                <Text style={{marginRight: 20, color:COLORS.dark}}>
                                     {place.address}
                                 </Text>
                             </View>

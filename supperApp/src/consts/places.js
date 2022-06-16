@@ -83,7 +83,7 @@ const Places = (places) => {
     )
 }
 
-// export default Places;
+export default Places;
 
 
 // // const Places = ({places}) => {
