@@ -1,8 +1,8 @@
 import {
-    StyleSheet,
-    Text,
-    View, // Add this
-  } from "react-native";
+  StyleSheet,
+  Text,
+  View, // Add this
+} from "react-native";
 
 // // const places = [
 // // {
@@ -57,14 +57,12 @@ import {
 
 // // export default places
 
-
 const Places = (places) => {
-    console.log(places)
-    return (
-        <View>
-            <Text>
-            
-            {/* {places.map((place) => {
+  console.log(places);
+  return (
+    <View>
+      <Text>
+        {/* {places.map((place) => {
 
                 return (
                     
@@ -78,44 +76,9 @@ const Places = (places) => {
                 
                 );
             })} */}
-            </Text>
-        </View>
-    )
-}
+      </Text>
+    </View>
+  );
+};
 
 export default Places;
-
-
-// // const Places = ({places}) => {
-
-// //     return (
-// //         <View>
-// //         {places.map((item, index) => {
-// //             return (
-                
-// //                 <Text style={styles.text} key={index}>
-// //                     {item.name}
-// //                     {item.address}
-// //                     {item.located_at}
-// //                     {item.cuisineId}
-// //                     {item.priceId}
-// //                 </Text>
-               
-// //             );
-// //         })}
-// //         </View>
-// //     )
-// // }
-
-// // export default Places;
-
-// const styles = StyleSheet.create({
-//     text: {
-//         fontSize: 15,
-//         padding: 5,
-//         justifyContent: "center",
-//         paddingBottom: 5,
-//         maxWidth:200,
-//     },
-// })
-
