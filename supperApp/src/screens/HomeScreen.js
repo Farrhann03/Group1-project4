@@ -1,14 +1,10 @@
 import axios from "axios";
 import { SafeAreaView, StatusBar, StyleSheet, View, ScrollView, Text, ImageBackground, FlatList, TextInput, Dimensions, Animated } from "react-native";
-import { TouchableOpacity } from "react-native-gesture-handler";
 import Icon from "react-native-vector-icons/MaterialIcons";
-import COLORS from "../consts/colors";
 import places from '../consts/places';
-import recommend from "../consts/recommended";
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import React, { useEffect, useState } from "react";
 import { TouchableOpacity } from "react-native-gesture-handler";
-import Icon from "react-native-vector-icons/MaterialIcons";
 import COLORS from "../consts/colors";
 // import places from '../consts/places';
 import SignUpScreen from '../screens/SignInSignUp/SignUpScreen';
