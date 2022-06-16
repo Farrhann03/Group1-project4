@@ -58,7 +58,7 @@ const HomeScreen = ({ navigation }) => {
   };
 
   const Card = ({ place }) => {
-    console.log("Card func", place);
+    //console.log("Card func", place);
     return (
       <TouchableOpacity
         activeOpacity={0.8}
@@ -66,7 +66,7 @@ const HomeScreen = ({ navigation }) => {
       >
         <ImageBackground
           style={style.cardImage}
-          // source={place.image}
+          source={{uri :place.image}}
         >
           <Text
             style={{
@@ -182,7 +182,7 @@ const HomeScreen = ({ navigation }) => {
             showsHorizontalScrollIndicator={false}
             data={places}
             renderItem={({ item }) => {
-              console.log("item item", item);
+              //console.log("item item", item);
               return <Card place={item} />;
             }}
           />
