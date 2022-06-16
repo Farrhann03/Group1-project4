@@ -8,8 +8,9 @@ const OnBoardScreen = ({navigation}) => {
     <View style={{flex: 1}}>
         <StatusBar translucent backgroundColor={"rgba(0,0,0,0)"} />
         <ImageBackground
-        style={{flex: 1}}
-        source={require('../assets/Brine_001.jpeg')}>
+        style={{flex: 1, backgroundColor: COLORS.dark}}
+        source={require('../assets/Brine_001.jpeg')}
+        imageStyle={{opacity: 0.7}}>
         <View style={style.details}>
             <Text style={{color: COLORS.white, fontSize: 35, fontWeight: 'bold'}}>
                 Bring your palate 
@@ -53,6 +54,6 @@ const style = StyleSheet.create({
         borderRadius: 7,
         justifyContent: 'center',
         alignItems: 'center'
-    }
+    },
 });
 export default OnBoardScreen;

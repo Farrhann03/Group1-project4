@@ -10,8 +10,9 @@ const DetailsScreen = ({navigation, route}) => {
         style={{flex: 1, backgroundColor: COLORS.white}}>
             <StatusBar translucent backgroundColor="rgba(0,0,0,0)" />
             <ImageBackground 
-                style={{flex:0.7}} 
-                source={place.image}>
+                style={{flex:0.7, backgroundColor: COLORS.dark}} 
+                source={{uri: place.image}}
+                imageStyle={{opacity: 0.7}}>
                     <View style={style.header}>
                         <Icon 
                             name="arrow-back-ios" 

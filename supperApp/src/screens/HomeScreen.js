@@ -1,26 +1,24 @@
-import React, { useRef, useState } from 'react';
-import { Animated, Image, SafeAreaView, StatusBar, StyleSheet, View, ScrollView, Text, ImageBackground, FlatList, TextInput, Dimensions } from "react-native";
-import { TouchableOpacity } from "react-native-gesture-handler";
+import axios from "axios";
+import { SafeAreaView, StatusBar, StyleSheet, View, ScrollView, Text, ImageBackground, FlatList, TextInput, Dimensions, Animated } from "react-native";
 import Icon from "react-native-vector-icons/MaterialIcons";
-import COLORS from "../consts/colors";
 import places from '../consts/places';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import React, { useRef, useEffect, useState } from "react";
+import { TouchableOpacity } from "react-native-gesture-handler";
+import COLORS from "../consts/colors";
 import SignUpScreen from '../screens/SignInSignUp/SignUpScreen'
 import recommend from "../consts/recommended";
 const {width} = Dimensions.get('screen');
-import profile from '../assets/profile.png'
-import home from '../assets/home.png';
-import search from '../assets/search.png';
-import notifications from '../assets/bell.png';
-import settings from '../assets/settings.png';
-import logout from '../assets/logout.png';
-// Menu
-import menu from '../assets/menu.png';
-import close from '../assets/close.png';
-
-// Photo
-import photo from '../assets/photo.jpg';
 
 const HomeScreen = ({navigation}) => {
+
+    const [places, setPlaces] = useState([]);
+
+    useEffect(() => {
+      fetch("https://supper-makan-apa.herokuapp.com/public/location")
+        .then((res) => res.json())
+        .then((data) => setPlaces(data));
+    }, []);
     const [currentTab, setCurrentTab] = useState("Home");
     // To get the curretn Status of menu ...
     const [showMenu, setShowMenu] = useState(false);
@@ -47,31 +45,31 @@ const HomeScreen = ({navigation}) => {
         </View>
     }
 
-    const LogIN =({SignUpScreen}) =>{
-        return (
-            <TouchableOpacity activeOpacity={0.8} onPress={()=>navigation.navigate("SignUpScreen", SignUpScreen)}>
-            <Icon name="person" size={28} color={COLORS.white}/>
-        </TouchableOpacity>
-        )
-    }
+    //for account log drawer status and logout
+    const [inputs, setInputs] = React.useState({
+        username: "",
+        email: "",
+        password: "",
+    });
+
+
 
 const Card = ({place}) => {
     return (
         <TouchableOpacity activeOpacity={0.8} onPress={()=>navigation.navigate("DetailsScreen", place)}>
         <ImageBackground
             style={style.cardImage}
-            source={place.image}>
-                <View style={{backgroundColor: COLORS.white, borderRadius: 10}}>
+            source={{uri :place.image}}
+            imageStyle={{opacity: 0.7}}>
                 <Text 
                     style={{
-                        color: COLORS.primary2,
+                        color: COLORS.white,
                         fontSize: 20, 
                         fontWeight: 'bold',
                         marginTop: 10,
                     }}>
                     {place.name}
                 </Text>
-                </View>
                 <View style={{flexDirection: 'row'}}>
                                 <Icon name='star' size={20} color={COLORS.white} />
                                 <Text style={{marginLeft: 5, color:COLORS.white}}>
@@ -88,7 +86,7 @@ const Card = ({place}) => {
                             <View style={{flexDirection: 'row'}}>
                                 <Icon name='place' size={20} color={COLORS.white} />
                                 <Text style={{marginRight: 20, color:COLORS.white}}>
-                                    {place.location}
+                                    {place.address}
                                 </Text>
                             </View>
                         </View>
@@ -101,7 +99,8 @@ const Card = ({place}) => {
      return (
         <ImageBackground 
             style={style.rmCardImage} 
-            source={recommend.image}>
+            source={recommend.image}
+            imageStyle={{opacity: 0.7}}>
             <Text 
                 style={{
                     color: COLORS.white, 
@@ -136,126 +135,107 @@ const Card = ({place}) => {
         </ImageBackground>
      )
  }
+//For Login status and account login/signup
+//  const [userDetails, setUserDetails] = React.useState();
+//  React.useEffect (() => {
+//     getUserDetails();
+//  }, []);
+//  const getUserDetails = async () => {
+//     const requestData = {
+//         username: inputs.username,
+//         email: inputs.email,
+//         password: inputs.password
+//     }
+//     const userData = await axios.post("https://supper-makan-apa.herokuapp.com/login/signin", requestData);
+//     if (userData) {
+//         setUserDetails(JSON.parse(userData));
+//     }
+//  };
 
-    return (
-    
-        <SafeAreaView style={style.container}>
+//  const logOut = () => {
+//     const requestData = {
+//         username: inputs.username,
+//         email: inputs.email,
+//         password: inputs.password
+//     }
+//     axios.post("https://supper-makan-apa.herokuapp.com/login/signup", 
+//     requestData,
+//     JSON.stringify({...userDetails, loggedIn: false}),);
+//     navigation.navigate("LogInScreen");
+//  }
 
-        <View style={{ justifyContent: 'flex-start', padding: 15 }}>
-          <Image source={profile} style={{
-            width: 60,
-            height: 60,
-            borderRadius: 10,
-            marginTop: 8
-          }}></Image>
-  
-          <Text style={{
-            fontSize: 20,
-            fontWeight: 'bold',
-            color: 'white',
-            marginTop: 20
-          }}>Jenna Ezarik</Text>
-  
-          <TouchableOpacity>
-            <Text style={{
-              marginTop: 6,
-              color: 'white'
-            }}>View Profile</Text>
-          </TouchableOpacity>
-  
-          <View style={{ flexGrow: 1, marginTop: 50 }}>
-            {
-              // Tab Bar Buttons....
-            }
-  
-            {TabButton(currentTab, setCurrentTab, "Home", home)}
-            {TabButton(currentTab, setCurrentTab, "Search", search)}
-            {TabButton(currentTab, setCurrentTab, "Notifications", notifications)}
-            {TabButton(currentTab, setCurrentTab, "Settings", settings)}
-  
-          </View>
-  
-          <View>
-            {TabButton(currentTab, setCurrentTab, "LogOut", logout)}
-          </View>
-  
-        </View>
-  
-        {
-          // Over lay View...
-        }
-  
-        <Animated.View style={{
-          flexGrow: 1,
-          backgroundColor: 'white',
-          position: 'absolute',
-          top: 0,
-          bottom: 0,
-          left: 0,
-          right: 0,
-          paddingHorizontal: 15,
-          paddingVertical: 20,
-          borderRadius: showMenu ? 15 : 0,
-          // Transforming View...
-          transform: [
-            { scale: scaleValue },
-            { translateX: offsetValue }
-          ]
+//Mock up user status and logout
+const [userDetails, setUserDetails] = React.useState();
+React.useEffect(() => {
+    getUserDetails();
+}, []);
+const getUserDetails = async () => {
+    const userData = await AsyncStorage.getItem('user');
+    if (userData) {
+        setUserDetails(JSON.parse(userData));
+    }
+};
+const logOut = () => {
+    AsyncStorage.setItem(
+        'user',
+        JSON.stringify({...userDetails, loggedIn: false}),
+    );
+    navigation.navigate("LogInScreen");
+};
+
+    return  <SafeAreaView style={{flex:1, backgroundColor: COLORS.primary2}}>
+                <StatusBar translucent={false} backgroundColor={COLORS.white}/>
+            <View style={style.accountContainer}>
+                <View>
+                    <Text style={{fontSize: 12, paddingTop: 10, paddingLeft: 15,color: COLORS.white}}>Welcome,</Text>
+                    <Text style={style.accountContainerText}>{userDetails?.username}</Text>
+                </View>
+                <View>
+                    <TouchableOpacity style={{flexDirection: "row", marginTop: 50}} onPress={logOut}>
+                        <Icon style={{marginLeft: 10, marginTop: 9.8}}name="logout" size={28} color={COLORS.white}/>
+                        <Text style={style.accountContainerText}>Log out</Text>
+                    </TouchableOpacity>
+                </View>
+                
+            </View>
+        
+    <Animated.View  style={{
+        flexGrow: 1,
+        backgroundColor: COLORS.white,
+        position: 'absolute',
+        top: 0,
+        bottom: 0,
+        left: 0,
+        right: 0,
+        borderRadius: showMenu ? 15 : 0,
+        transform: [
+            {scale: scaleValue},
+            {translateX: offsetValue}
+        ]
+    }}>
+
+    <View style={style.header}>
+        <TouchableOpacity style={{marginTop: 20, marginLeft: 5 }} activeOpacity={0.8} onPress={()=>{
+            Animated.timing(scaleValue,{ 
+            toValue: showMenu ? 1 : 0.93,
+            duration:300,
+            useNativeDriver: true})
+                .start()
+
+            Animated.timing(offsetValue,{ 
+            toValue: showMenu ? 0 : 130,
+            duration:300,
+            useNativeDriver: true})
+                    .start()
+
+            setShowMenu(!showMenu);
         }}>
-  
-          {
-            // Menu Button...
-          }
-  
-          <Animated.View style={{
-            transform: [{
-              translateY: closeButtonOffset
-            }]
-          }}>
-            <TouchableOpacity onPress={() => {
-              // Do Actions Here....
-              // Scaling the view...
-              Animated.timing(scaleValue, {
-                toValue: showMenu ? 1 : 0.88,
-                duration: 300,
-                useNativeDriver: true
-              })
-                .start()
-  
-              Animated.timing(offsetValue, {
-                // YOur Random Value...
-                toValue: showMenu ? 0 : 230,
-                duration: 300,
-                useNativeDriver: true
-              })
-                .start()
-  
-              Animated.timing(closeButtonOffset, {
-                // YOur Random Value...
-                toValue: !showMenu ? -30 : 0,
-                duration: 300,
-                useNativeDriver: true
-              })
-                .start()
-  
-              setShowMenu(!showMenu);
-            }}>
-  
-              <Image source={showMenu ? close : menu} style={{
-                width: 20,
-                height: 20,
-                tintColor: 'black',
-                marginTop: 40,
-  
-              }}></Image>
-  
-            </TouchableOpacity>
-           
-        <StatusBar translucent={false} backgroundColor={COLORS.white}/>
-        <View style={style.header}>
-            <LogIN />
-            <Icon name="filter-alt" size={28} color={COLORS.white} />
-        </View>
+                
+    
+            <Icon name="person" size={28} color={COLORS.white}/>
+        </TouchableOpacity>
+        <Icon style={{marginTop: 20, marginRight: 5 }} name="filter-alt" size={28} color={COLORS.white} onPress={()=>navigation.navigate("FilterScreen", places)} />
+    </View>
         <ScrollView showsVerticalScrollIndicator={false}>
             <View 
                 style={{
@@ -275,7 +255,7 @@ const Card = ({place}) => {
                     </View>
                 </View>
             </View>
-            <ListCategories />
+        <ListCategories />
             <Text style={style.sectionTitle}>Restaurants</Text>
             <View>
                 <FlatList 
@@ -294,55 +274,11 @@ const Card = ({place}) => {
                     data={recommend} 
                     renderItem={({item}) => <RecommendedCard recommend={item}/>} />
             </View>
-        </ScrollView>
-
-            
-          </Animated.View>
-  
+            </ScrollView>
         </Animated.View>
-  
-      </SafeAreaView>
-    );
-  }
-  
-  // For multiple Buttons...
-  const TabButton = (currentTab, setCurrentTab, title, image) => {
-    return (
-  
-      <TouchableOpacity onPress={() => {
-        if (title == "LogOut") {
-          // Do your Stuff...
-        } else {
-          setCurrentTab(title)
-        }
-      }}>
-        <View style={{
-          flexDirection: "row",
-          alignItems: 'center',
-          paddingVertical: 8,
-          backgroundColor: currentTab == title ? 'white' : 'transparent',
-          paddingLeft: 13,
-          paddingRight: 35,
-          borderRadius: 8,
-          marginTop: 15
-        }}>
-  
-          <Image source={image} style={{
-            width: 25, height: 25,
-            tintColor: currentTab == title ? "#D95FAA" : "white"
-          }}></Image>
-  
-          <Text style={{
-            fontSize: 15,
-            fontWeight: 'bold',
-            paddingLeft: 15,
-            color: currentTab == title ? "#D95FAA" : "white"
-          }}>{title}</Text>
-  
-        </View>
-      </TouchableOpacity>
-    );
-  }
+    </SafeAreaView>;
+
+};
 
 const style = StyleSheet.create({
     header:{
@@ -356,6 +292,19 @@ const style = StyleSheet.create({
         color: COLORS.white,
         fontWeight: 'bold',
         fontSize: 23,
+    },
+    accountContainer: {
+        flex: 1,
+        backgroundColor: COLORS.primary2,
+        alignItems: "flex-start",
+        justifyContent: "flex-start",
+    },
+    accountContainerText: {
+        fontSize: 15,
+        fontWeight: "bold",
+        paddingTop: 15,
+        paddingLeft: 15,
+        color: COLORS.white,
     },
     inputContainer:{
         height: 60,
@@ -396,7 +345,7 @@ const style = StyleSheet.create({
         padding: 10,
         overflow: 'hidden',
         borderRadius: 10,
-        color: "rgba(0,0,0,10)"
+        backgroundColor: COLORS.dark
     },
     rmCardImage: {
         width: width - 40,
@@ -404,13 +353,8 @@ const style = StyleSheet.create({
         marginRight: 20,
         borderRadius: 10, 
         overflow: 'hidden',
-        padding: 10
-    },
-    container: {
-        flex: 1,
-        backgroundColor: COLORS.primary2,
-        alignItems: 'flex-start',
-        justifyContent: 'flex-start',
-    },
+        padding: 10,
+        backgroundColor: COLORS.dark
+    }
 });
 export default HomeScreen
