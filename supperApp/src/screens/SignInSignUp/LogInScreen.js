@@ -7,7 +7,6 @@ import Button from '../SignInSignUp/components/Button';
 import Loader from '../SignInSignUp/components/Loader';
 import axios from 'axios';
 import Icon from "react-native-vector-icons/MaterialIcons";
-import HomeScreen from '../HomeScreen';
 
 const LogInScreen = ({navigation}) => {
 
