@@ -8,51 +8,52 @@ import {
 
 
 
+
 const Restaurants = () => {
   const [place, setPlace] = useState([]);
-  const [rest, setrest] = useState([]);
+  //const [rest, setrest] = useState([]);
 
   useEffect(() => {
     getLocationAll();
-    onPressHandler();
+    // onPressHandler();
   }, []);
 
   const getLocationAll = async () => {
     const res = await fetch("https://supper-makan-apa.herokuapp.com/public/location");
     const data = await res.json();
-      console.log(res);
-      console.log(data);
+      // console.log(res);
+      // console.log(data);
       setPlace(data);
     
   };
 
   
-  const onPressHandler = async (key) => {
-    const res1 = await fetch(`https://supper-makan-apa.herokuapp.com/public/location/${key}`);
-    const data1 = await res1.json();
-    console.log(res1, data1)
-    console.log(key)
-    setrest(data1)
-  }
+  // const onPressHandler = async (key) => {
+  //   const res1 = await fetch(`https://supper-makan-apa.herokuapp.com/public/location/${key}`);
+  //   const data1 = await res1.json();
+  //   console.log(res1, data1)
+  //   console.log(key)
+  //   setrest(data1)
+  // }
 
-  const list = () => {
-    return data.map((l, id) => {
-         return (
-           <View style={{ margin: 10, fontSize: 15, flex:2,  padding:20}} key={id} >
-            <TouchableOpacity 
-            key={id}
-            onPress={onPressHandler}>
-             <Text>{l.name}</Text>
-             <Text>{l.address}</Text>
-             <Text>{l.located_at}</Text>
-             <Text>{l.cuisineId}</Text>
-             <Text>{l.priceId}</Text>
-            </TouchableOpacity>
-           </View>
-         );
-       })
+  // const list = () => {
+  //   return data.map((l, id) => {
+  //        return (
+  //          <View style={{ margin: 10, fontSize: 15, flex:2,  padding:20}} key={id} >
+  //           <TouchableOpacity 
+  //           key={id}
+  //           onPress={onPressHandler}>
+  //            <Text>{l.name}</Text>
+  //            <Text>{l.address}</Text>
+  //            <Text>{l.located_at}</Text>
+  //            <Text>{l.cuisineId}</Text>
+  //            <Text>{l.priceId}</Text>
+  //           </TouchableOpacity>
+  //          </View>
+  //        );
+  //      })
     
-   }
+  //  }
 
 
   return (
@@ -60,6 +61,7 @@ const Restaurants = () => {
     <Text style= {{fontSize: 30}}>Restaurants</Text>
     <Text style= {{fontSize: 12}}>
         <Places places = {place} />
+        
             {/* {places.map((l) => {
                 return (
                     <Text key={l.id}>

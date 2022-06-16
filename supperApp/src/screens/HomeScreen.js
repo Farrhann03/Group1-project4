@@ -38,7 +38,8 @@ const Card = ({place}) => {
         <TouchableOpacity activeOpacity={0.8} onPress={()=>navigation.navigate("DetailsScreen", place)}>
         <ImageBackground
             style={style.cardImage}
-            source={place.image}>
+            // source={place.image}
+            >
                 <Text 
                     style={{
                         color: COLORS.white, 
@@ -51,7 +52,7 @@ const Card = ({place}) => {
                 <View style={{flexDirection: 'row'}}>
                                 <Icon name='star' size={20} color={COLORS.white} />
                                 <Text style={{marginLeft: 5, color:COLORS.white}}>
-                                    {place.rating}
+                                    {/* {place.rating} */}
                                 </Text>
                             </View>
                 <View 
@@ -64,7 +65,7 @@ const Card = ({place}) => {
                             <View style={{flexDirection: 'row'}}>
                                 <Icon name='place' size={20} color={COLORS.white} />
                                 <Text style={{marginRight: 20, color:COLORS.white}}>
-                                    {place.location}
+                                    {place.address}
                                 </Text>
                             </View>
                         </View>
@@ -146,7 +147,7 @@ const Card = ({place}) => {
                     horizontal
                     showsHorizontalScrollIndicator={false}
                     data={places} 
-                    renderItem={({item}) => <Card place={item} />} 
+                    renderItem={({places}) => <Card place={places} />} 
                 />
                 <Text style={style.sectionTitle}>Recommended</Text>
                 <FlatList 
