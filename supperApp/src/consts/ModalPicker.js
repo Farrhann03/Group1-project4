@@ -7,17 +7,50 @@ import {
     Dimensions,
     ScrollView
 } from 'react-native'
+import { SafeAreaView } from 'react-native-safe-area-context';
+import COLORS from './colors';
 
 const LOCATION = ['North', 'South', 'East', 'West', 'Central'];
+const CUISINE = ['Chinese', 'Fast Food', 'Indian', 'Korean', 'Japanese'];
+const PRICE = ['$', '$$', '$$$', '$$$$', '$$$$$'];
 const WIDTH = Dimensions.get('window').width;
 const HEIGHT = Dimensions.get('window').height;
 const ModalPicker = (props) => {
 
     const onPressItem = (location) => {
-        props.changeModalVisibility(false);
-        props.setData(location);
+        props.changeLocModalVisibility(false);
+        props.setLocation(location);
     }
+    
     const location = LOCATION.map((item, index) => {
+        return (
+            <TouchableOpacity 
+                style={style.option}
+                key={index}
+                onPress={() => onPressItem(item)}
+            >
+                <Text style={style.text}>
+                    {item}
+                </Text>
+            </TouchableOpacity>
+        )
+    })
+
+    const cuisine = CUISINE.map((item, index) => {
+        return (
+            <TouchableOpacity 
+                style={style.option}
+                key={index}
+                onPress={() => onPressItem(item)}
+            >
+                <Text style={style.text}>
+                    {item}
+                </Text>
+            </TouchableOpacity>
+        )
+    })
+
+    const price = PRICE.map((item, index) => {
         return (
             <TouchableOpacity 
                 style={style.option}
@@ -33,7 +66,7 @@ const ModalPicker = (props) => {
 
     return (
         <TouchableOpacity 
-            onPress={() => props.changeModalVisibilty(false)}
+            onPress={() => props.changeLocModalVisibility(false)}
             style={style.container}
             >
 
@@ -42,8 +75,8 @@ const ModalPicker = (props) => {
                     {location}
                 </ScrollView>
             </View>
-
         </TouchableOpacity>
+
     )
 }
 
@@ -64,7 +97,8 @@ const style = StyleSheet.create ({
     text: {
         margin: 20,
         fontSize: 20,
-        fontWeight: 'bold'
+        fontWeight: 'bold',
+        color: COLORS.primary2
     }
 })
 
