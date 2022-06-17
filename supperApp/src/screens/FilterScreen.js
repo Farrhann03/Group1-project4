@@ -1,4 +1,4 @@
-import React, {useState} from 'react'
+import React, {useState, useEffect} from 'react'
 import {
     StyleSheet, 
     Text, 
@@ -13,26 +13,35 @@ import { ModalPicker } from '../consts/ModalPicker';
 import Icon from "react-native-vector-icons/MaterialIcons";
 
 const FilterScreen = ({navigation}) => {
-
+    const [record, setRecord] = useState([])
     const [chooseLoc, setchooseLoc] = useState('Location... ');
     const [chooseCui, setchooseCui] = useState('Desired Cuisine... ');
     const [choosePri, setchoosePri] = useState('Price Range... ');
     const [isLocModalVisible, setisLocModalVisible] = useState(false);
     const [isCuiModalVisible, setisCuiModalVisible] = useState(false);
 
+    useEffect(() => {
+        fetch(`https://supper-makan-apa.herokuapp.com/public/location/${chooseLoc}`)
+          .then((res) => res.json())
+          .then((data) => setRecord(data));
+      }, []);
+
     const changeLocModalVisibility = (bool) => {
         setisLocModalVisible(bool)
     }
-    const changeCuiModalVisibility = (bool) => {
-        setisLocModalVisible(bool)
-    }
+    // const changeCuiModalVisibility = (bool) => {
+    //     setisLocModalVisible(bool)
+    // }
 
     const setLocation = (option) => {
         setchooseLoc(option)
     }
-    const setCuisine = (option) => {
-        setchooseCui(option)
-    }
+    // const setCuisine = (option) => {
+    //     setchooseCui(option)
+    // }
+    
+    console.log({chooseLoc})
+    console.log({record})
 
     return (
         <SafeAreaView style={style.container}>
@@ -74,7 +83,9 @@ const FilterScreen = ({navigation}) => {
                     />
                     
             </Modal>
-            <Modal 
+
+
+            {/* <Modal 
                 transparent={true} 
                 animationType='fade'
                 visible={isLocModalVisible}
@@ -85,7 +96,32 @@ const FilterScreen = ({navigation}) => {
                         setCuisine={setCuisine}
                     />
                     
-            </Modal>
+            </Modal> */}
+
+                <View>
+                    <Text style={style.text}>
+                    
+                        Name
+                        Address
+                        Located_at
+                        Cuisine
+                        Price
+                    
+                    </Text>
+                    {record.map((item, index) => {
+                        return (
+                            <TouchableOpacity 
+                                style={style.option}
+                                key={index}
+                            >
+                                <Text style={style.text}>
+                                    {item}
+                                </Text>
+                            </TouchableOpacity>
+                        )
+                    })}
+
+                </View> 
             </ImageBackground>
         </SafeAreaView>
     )

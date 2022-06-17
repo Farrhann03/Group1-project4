@@ -72,7 +72,7 @@ const ModalPicker = (props) => {
 
             <View style={[style.modal, {width: WIDTH - 20, height: HEIGHT/2}]}>
                 <ScrollView>
-                    {location}
+                    <View>{location}</View>
                 </ScrollView>
             </View>
         </TouchableOpacity>
