@@ -8,3 +8,4 @@ yarn add react-native-reanimated@next react-native-gesture-handler
 
 expo r -c
 
+update files
