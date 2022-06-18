@@ -9,17 +9,17 @@ import {
 } from "react-native";
 import COLORS from "./colors";
 
-const LOCATION = ["North", "South", "East", "West", "Central"];
+const PRICE = ["$", "$$", "$$$", "$$$$", "$$$$$"];
 const WIDTH = Dimensions.get("window").width;
 const HEIGHT = Dimensions.get("window").height;
 
-const ModalPicker = (props) => {
-  const onPressItem = (location) => {
-    props.changeLocModalVisibility(false);
-    props.setLocation(location);
+const ModalPicker2 = (props) => {
+  const onPressItem = (price) => {
+    props.changePriModalVisibility(false);
+    props.setPrice(price);
   };
 
-  const location = LOCATION.map((item, index) => {
+  const price = PRICE.map((item, index) => {
     return (
       <TouchableOpacity
         style={style.option}
@@ -34,12 +34,12 @@ const ModalPicker = (props) => {
   return (
     <ScrollView>
       <TouchableOpacity
-        onPress={() => props.changeLocModalVisibility(false)}
+        onPress={() => props.changePriModalVisibility(false)}
         style={style.container}
       >
         <View style={[style.modal, { width: WIDTH - 20, height: HEIGHT / 2 }]}>
           <ScrollView>
-            <View>{location}</View>
+            <View>{price}</View>
           </ScrollView>
         </View>
       </TouchableOpacity>
@@ -68,4 +68,4 @@ const style = StyleSheet.create({
   },
 });
 
-export { ModalPicker };
+export { ModalPicker2 };
