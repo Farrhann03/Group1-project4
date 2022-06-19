@@ -20,11 +20,11 @@ const App = () => {
     <NavigationContainer>
       <Stack.Navigator screenOptions={{headerShown: false}}>
 
-        <Stack.Screen name="OnBoard" component={OnBoardScreen} />
+        {/* <Stack.Screen name="OnBoard" component={OnBoardScreen} />
         <Stack.Screen name="HomeScreen" component={HomeScreen} />
         <Stack.Screen name="DetailsScreen" component={DetailsScreen} />
         <Stack.Screen name="SignUpScreen" component={SignUpScreen} />
-        <Stack.Screen name="LogInScreen" component={LogInScreen} />
+        <Stack.Screen name="LogInScreen" component={LogInScreen} /> */}
         <Stack.Screen name="FilterScreen" component={FilterScreen} />
 
 

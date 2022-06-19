@@ -71,7 +71,7 @@ const FilterScreen = ({ navigation }) => {
           onPress={() => changeLocModalVisibility(true)}
           style={style.touchableOpacity}
         >
-          <Text style={style.text}>{chooseLoc}</Text>
+          <Text style={style.text}>location : {chooseLoc}</Text>
         </TouchableOpacity>
         <Modal
           transparent={true}
@@ -90,7 +90,7 @@ const FilterScreen = ({ navigation }) => {
           onPress={() => changeCuiModalVisibility(true)}
           style={style.touchableOpacity}
         >
-          <Text style={style.text}>{chooseCui}</Text>
+          <Text style={style.text}>cuisine type : {chooseCui}</Text>
         </TouchableOpacity>
         <Modal
           transparent={true}
@@ -109,7 +109,7 @@ const FilterScreen = ({ navigation }) => {
           onPress={() => changePriModalVisibility(true)}
           style={style.touchableOpacity}
         >
-          <Text style={style.text}>{choosePri}</Text>
+          <Text style={style.text}>price range : {choosePri}</Text>
         </TouchableOpacity>
 
         <Modal
