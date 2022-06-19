@@ -59,7 +59,6 @@ const Card = ({place}) => {
         <ImageBackground
             style={style.cardImage}
             source={{uri:place.image}}
-            // source={{uri:`${place.image}`}}
             imageStyle={{opacity: 0.7}}>
                 <Text 
                     style={{

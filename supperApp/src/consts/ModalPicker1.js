@@ -9,17 +9,25 @@ import {
 } from "react-native";
 import COLORS from "./colors";
 
-const LOCATION = ["North", "South", "East", "West", "Central"];
+const CUISINE = [
+  "Western",
+  "Muslim",
+  "Indian",
+  "Chinese",
+  "Thai",
+  "Japanese",
+  "Korean",
+];
 const WIDTH = Dimensions.get("window").width;
 const HEIGHT = Dimensions.get("window").height;
 
-const ModalPicker = (props) => {
-  const onPressItem = (location) => {
-    props.changeLocModalVisibility(false);
-    props.setLocation(location);
+const ModalPicker1 = (props) => {
+  const onPressItem = (cuisine) => {
+    props.changeCuiModalVisibility(false);
+    props.setCuisine(cuisine);
   };
 
-  const location = LOCATION.map((item, index) => {
+  const cuisine = CUISINE.map((item, index) => {
     return (
       <TouchableOpacity
         style={style.option}
@@ -34,12 +42,12 @@ const ModalPicker = (props) => {
   return (
     <ScrollView>
       <TouchableOpacity
-        onPress={() => props.changeLocModalVisibility(false)}
+        onPress={() => props.changeCuiModalVisibility(true)}
         style={style.container}
       >
         <View style={[style.modal, { width: WIDTH - 20, height: HEIGHT / 2 }]}>
           <ScrollView>
-            <View>{location}</View>
+            <View>{cuisine}</View>
           </ScrollView>
         </View>
       </TouchableOpacity>
@@ -68,4 +76,4 @@ const style = StyleSheet.create({
   },
 });
 
-export { ModalPicker };
+export { ModalPicker1 };
