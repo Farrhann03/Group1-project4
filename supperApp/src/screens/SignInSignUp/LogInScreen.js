@@ -5,8 +5,8 @@ import COLORS from '../../consts/colors';
 import Input from '../SignInSignUp/components/Input';
 import Button from '../SignInSignUp/components/Button';
 import Loader from '../SignInSignUp/components/Loader';
-import axios from 'axios';
 import Icon from "react-native-vector-icons/MaterialIcons";
+import API from '../Api';
 
 const LogInScreen = ({navigation}) => {
 
@@ -71,7 +71,7 @@ const LogInScreen = ({navigation}) => {
                 username:inputs.username,
                 password:inputs.password
             }
-            const userData = await axios.post("https://supper-makan-apa.herokuapp.com/login/signin", requestData);
+            const userData = await API.post("/login/signin", requestData);
             navigation.navigate("HomeScreen");
             Alert.alert("Logged in successfully");
             console.log("Logged in successfully", JSON.stringify({...userData, loggedIn: true}));

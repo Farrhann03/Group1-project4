@@ -1,10 +1,22 @@
-import React from "react";
+import React, {useState, useEffect} from "react";
 import { ImageBackground, SafeAreaView, StatusBar, StyleSheet, View, Text } from "react-native";
 import Icon from "react-native-vector-icons/MaterialIcons";
 import COLORS from '../consts/colors';
+import API from "./Api";
 
-const DetailsScreen = ({navigation, route}) => {
+const DetailsScreen = ({navigation, route }) => {
+
+    const [review, setReviews] = useState('');
+
+    useEffect(() => {
+        
+        API.get(`/public/review/${place.id}`)
+           .then((res) => res.data)
+           .then((data) => {setReviews(data)})
+      }, []);
+
     const place = route.params;
+    
     return (
     <SafeAreaView 
         style={{flex: 1, backgroundColor: COLORS.white}}>
@@ -56,15 +68,15 @@ const DetailsScreen = ({navigation, route}) => {
                             fontWeight: 'bold', 
                             color:COLORS.primary2
                         }}>
-                        {place.location}
+                        {place.address}
                         </Text>
                 </View>
                 <Text style={{marginTop: 20, fontWeight: 'bold', fontSize: 20}}>
                     Reviews
                 </Text>
-                <Text style={{padding: 10}}> - {place.reviewOne}</Text>
-                <Text style={{padding: 10}}> - {place.reviewTwo}</Text>
-                <Text style={{padding: 10}}> - {place.reviewThree}</Text>
+                <Text style={{padding: 10}}> - {review.review}</Text>
+                {/* <Text style={{padding: 10}}> - {place.reviewTwo}</Text>
+                <Text style={{padding: 10}}> - {place.reviewThree}</Text> */}
             </View>
         <View style={style.footer}>
             <View style={{flex:1, flexDirection: 'row', alignItems: 'center'}}>
@@ -74,7 +86,7 @@ const DetailsScreen = ({navigation, route}) => {
                         fontWeight: 'bold',
                         color: COLORS.white,
                     }}>
-                    Wallet damage: {place.price}
+                    Wallet damage: {place.priceId}
                 </Text>
             </View>
             <View style={style.reservationBtn}>

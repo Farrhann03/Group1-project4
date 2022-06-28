@@ -13,6 +13,7 @@ import { ModalPicker } from "../consts/ModalPicker";
 import { ModalPicker1 } from "../consts/ModalPicker1";
 import { ModalPicker2 } from "../consts/ModalPicker2";
 import Icon from "react-native-vector-icons/MaterialIcons";
+import API from "./Api";
 
 const FilterScreen = ({ navigation }) => {
   const [record, setRecord] = useState([]);
@@ -24,10 +25,10 @@ const FilterScreen = ({ navigation }) => {
   const [isPriModalVisible, setisPriModalVisible] = useState(false);
 
   useEffect(() => {
-    fetch(
-      `https://supper-makan-apa.herokuapp.com/public/location/${chooseLoc}/${chooseCui}/${choosePri}`
+    API.get(
+      `/public/location/${chooseLoc}/${chooseCui}/${choosePri}`
     )
-      .then((res) => res.json())
+      .then((res) => res.data)
       .then((data) => setRecord(data));
   }, []);
 
@@ -52,6 +53,8 @@ const FilterScreen = ({ navigation }) => {
     setchoosePri(option);
   };
 
+  console.log(record)
+
   return (
     <SafeAreaView style={style.container}>
       <ImageBackground
@@ -66,6 +69,7 @@ const FilterScreen = ({ navigation }) => {
           onPress={() => navigation.navigate("HomeScreen")}
           style={{ paddingLeft: 10, top: -210, left: -170 }}
         />
+        
         {/* ****************Location************************************** */}
         <TouchableOpacity
           onPress={() => changeLocModalVisibility(true)}
@@ -127,7 +131,7 @@ const FilterScreen = ({ navigation }) => {
         {/* **************** Display the List after Filtering ************************************** */}
         <View>
           <Text style={style.text}>
-            Name Address Located_at Cuisine Price OperatingHour
+            Name Address Located_at Cuisine Price
           </Text>
           {record.map((item, index) => {
             return (
@@ -138,7 +142,7 @@ const FilterScreen = ({ navigation }) => {
                   {item.located_at}
                   {item.cuisineId}
                   {item.priceId}
-                  {item.operatingHour}
+                  
                 </Text>
               </TouchableOpacity>
             );

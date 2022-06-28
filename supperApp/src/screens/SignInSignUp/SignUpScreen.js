@@ -7,6 +7,7 @@ import Input from '../SignInSignUp/components/Input';
 import Button from '../SignInSignUp/components/Button';
 import Loader from '../SignInSignUp/components/Loader';
 import Icon from "react-native-vector-icons/MaterialIcons";
+import API from '../Api';
 
 const SignUpScreen = ({navigation}) => {
     
@@ -117,7 +118,7 @@ const SignUpScreen = ({navigation}) => {
         setLoading(true);
 
             try {
-                await axios.post("https://supper-makan-apa.herokuapp.com/login/signup",{
+                await API.post("/login/signup",{
                    username: inputs.username,
                    email: inputs.email,
                    password: inputs.password,
