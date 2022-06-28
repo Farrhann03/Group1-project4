@@ -7,6 +7,7 @@ import { TouchableOpacity } from "react-native-gesture-handler";
 import COLORS from "../consts/colors";
 import SignUpScreen from '../screens/SignInSignUp/SignUpScreen'
 import recommend from "../consts/recommended";
+import API from "./Api";
 const {width} = Dimensions.get('screen');
 
 const HomeScreen = ({navigation}) => {
@@ -14,10 +15,12 @@ const HomeScreen = ({navigation}) => {
     const [places, setPlaces] = useState([]);
 
     useEffect(() => {
-      fetch("https://supper-makan-apa.herokuapp.com/public/location")
-        .then((res) => res.json())
+      API.get("/public/location")
+        .then((res) => res.data)
         .then((data) => setPlaces(data));
     }, []);
+
+
     const [currentTab, setCurrentTab] = useState("Home");
     // To get the curretn Status of menu ...
     const [showMenu, setShowMenu] = useState(false);
@@ -50,8 +53,6 @@ const HomeScreen = ({navigation}) => {
         email: "",
         password: "",
     });
-
-
 
 const Card = ({place}) => {
     return (
@@ -263,8 +264,9 @@ const logOut = () => {
                     contentContainerStyle={{paddingLeft: 20}}
                     horizontal
                     showsHorizontalScrollIndicator={false}
-                    data={places} 
+                    data={places}
                     renderItem={({item}) => <Card place={item} />} 
+                    
                 />
                 <Text style={style.sectionTitle}>Recommended</Text>
                 <FlatList 
