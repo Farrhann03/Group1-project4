@@ -5,7 +5,6 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import React, { useRef, useEffect, useState } from "react";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import COLORS from "../consts/colors";
-import SignUpScreen from '../screens/SignInSignUp/SignUpScreen'
 import recommend from "../consts/recommended";
 const {width} = Dimensions.get('screen');
 

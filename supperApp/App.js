@@ -9,8 +9,8 @@ import LogInScreen from './src/screens/SignInSignUp/LogInScreen';
 import SignUpScreen from './src/screens/SignInSignUp/SignUpScreen';
 import HomeScreen from './src/screens/HomeScreen';
 import DetailsScreen from './src/screens/DetailsScreen';
-import FilterScreen from './src/screens/FilterScreen';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import FilterScreen from './src/screens/FilterScreen';
 
 
 const Stack = createStackNavigator();
@@ -26,6 +26,7 @@ const App = () => {
         <Stack.Screen name="SignUpScreen" component={SignUpScreen} />
         <Stack.Screen name="LogInScreen" component={LogInScreen} />
         <Stack.Screen name="FilterScreen" component={FilterScreen} />
+
 
 
       </Stack.Navigator>
