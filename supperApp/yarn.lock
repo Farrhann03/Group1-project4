@@ -7664,6 +7664,11 @@ react-native-drawer@^2.5.1:
     prop-types "^15.5.8"
     tween-functions "^1.0.1"
 
+react-native-dropdown-select-list@^1.0.16:
+  version "1.0.16"
+  resolved "https://registry.yarnpkg.com/react-native-dropdown-select-list/-/react-native-dropdown-select-list-1.0.16.tgz#9e80f2f7425668235f3234f2f946e7b87b11e684"
+  integrity sha512-f8EMY4CUoCrc7/hm+Mr+ACdWhC9qNDIFiB4pRH/7SKUHnmH56n46XF1LCYKBwB4l01ijArO7f8GUwyms33Dvfw==
+
 react-native-gesture-handler@~2.2.1:
   version "2.2.1"
   resolved "https://registry.yarnpkg.com/react-native-gesture-handler/-/react-native-gesture-handler-2.2.1.tgz#672258aa5a40c92a97c736bdde0a8bd6c8c6c692"
