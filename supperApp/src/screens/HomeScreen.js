@@ -230,12 +230,29 @@ const logOut = () => {
 
             setShowMenu(!showMenu);
         }}>
-            
-
             <Icon name="person" size={28} color={COLORS.white}/>
         </TouchableOpacity>
         <Image style={{width: 17, height: 30, marginTop: 22}} source={require("../assets/Suppermakanapa-icon.png")} />
-        <Icon style={{marginTop: 20, marginRight: 5 }} name="filter-alt" size={28} color={COLORS.white} onPress={()=>navigation.navigate("FilterScreen", places)} />
+        {/* <Icon style={{marginTop: 20, marginRight: 5 }} name="filter-alt" size={28} color={COLORS.white} onPress={()=>navigation.navigate("FilterScreen", places)} /> */}
+        <TouchableOpacity style={{marginTop: 20, marginRight: 5 }} activeOpacity={0.8} onPress={()=>{
+            Animated.timing(scaleValue,{ 
+            toValue: showMenu ? 1 : 0.93,
+            duration:300,
+            useNativeDriver: true})
+                .start()
+
+            Animated.timing(offsetValue,{ 
+            toValue: showMenu ? 0 : 130,
+            duration:300,
+            useNativeDriver: true})
+                    .start()
+
+            setShowMenu(!showMenu);
+        }}>
+            
+
+            <Icon name="filter-alt" size={28} color={COLORS.white}/>
+        </TouchableOpacity>
     </View>
         <ScrollView showsVerticalScrollIndicator={false}>
             <View 
