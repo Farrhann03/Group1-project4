@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from "react";
-import { ImageBackground, SafeAreaView, StatusBar, StyleSheet, View, Text } from "react-native";
+import { ImageBackground, SafeAreaView, StatusBar, StyleSheet, View, Text, TouchableOpacity } from "react-native";
 import Icon from "react-native-vector-icons/MaterialIcons";
 import COLORS from '../consts/colors';
 import API from "./Api";
@@ -89,16 +89,16 @@ const DetailsScreen = ({navigation, route }) => {
                     Wallet damage: {place.priceId}
                 </Text>
             </View>
-            <View style={style.reservationBtn}>
+            <TouchableOpacity style={style.reservationBtn} onPress={() => navigation.navigate("SubmitReviewScreen")}>
                 <Text 
                     style={{
                         color: COLORS.primary2, 
                         fontSize: 13, 
                         fontWeight: 'bold'
                     }}>
-                    Make a reservation
+                    Write a Review
                 </Text>
-            </View>
+            </TouchableOpacity>
         </View>
     </SafeAreaView>
     );

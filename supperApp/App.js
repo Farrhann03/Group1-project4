@@ -10,6 +10,7 @@ import SignUpScreen from './src/screens/SignInSignUp/SignUpScreen';
 import HomeScreen from './src/screens/HomeScreen';
 import DetailsScreen from './src/screens/DetailsScreen';
 import FilterScreen from './src/screens/FilterScreen';
+import SubmitReviewScreen from './src/screens/SubmitReviewScreen';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 
@@ -26,6 +27,8 @@ const App = () => {
         <Stack.Screen name="SignUpScreen" component={SignUpScreen} />
         <Stack.Screen name="LogInScreen" component={LogInScreen} />
         <Stack.Screen name="FilterScreen" component={FilterScreen} />
+        <Stack.Screen name="SubmitReviewScreen" component={SubmitReviewScreen} />
+
 
 
       </Stack.Navigator>
