@@ -123,6 +123,7 @@ const SignUpScreen = ({navigation}) => {
                    email: inputs.email,
                    password: inputs.password,
                 });
+                AsyncStorage.setItem("user", JSON.stringify(inputs));
                 navigation.navigate("LogInScreen");
             } catch(error) {
                 Alert.alert("Error", "Something went wrong")
