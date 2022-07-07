@@ -10,7 +10,7 @@ import recommend from "../consts/recommended";
 import API from "./Api";
 const {width} = Dimensions.get('screen');
 
-const HomeScreen = ({navigation}) => {
+const HomeScreen = ({navigation, route}) => {
 
     const [places, setPlaces] = useState([]);
 
@@ -136,36 +136,10 @@ const Card = ({place}) => {
         </ImageBackground>
      )
  }
-//For Login status and account login/signup
-//  const [userDetails, setUserDetails] = React.useState();
-//  React.useEffect (() => {
-//     getUserDetails();
-//  }, []);
-//  const getUserDetails = async () => {
-//     const requestData = {
-//         username: inputs.username,
-//         email: inputs.email,
-//         password: inputs.password
-//     }
-//     const userData = await axios.post("https://supper-makan-apa.herokuapp.com/login/signin", requestData);
-//     if (userData) {
-//         setUserDetails(JSON.parse(userData));
-//     }
-//  };
 
-//  const logOut = () => {
-//     const requestData = {
-//         username: inputs.username,
-//         email: inputs.email,
-//         password: inputs.password
-//     }
-//     axios.post("https://supper-makan-apa.herokuapp.com/login/signup", 
-//     requestData,
-//     JSON.stringify({...userDetails, loggedIn: false}),);
-//     navigation.navigate("LogInScreen");
-//  }
+ const requestData = route.params
 
-//Mock up user status and logout
+
 const [userDetails, setUserDetails] = React.useState();
 React.useEffect(() => {
     getUserDetails();
@@ -189,7 +163,7 @@ const logOut = () => {
             <View style={style.accountContainer}>
                 <View>
                     <Text style={{fontSize: 12, paddingTop: 10, paddingLeft: 15,color: COLORS.white}}>Welcome,</Text>
-                    <Text style={style.accountContainerText}>{userDetails?.username}</Text>
+                    <Text style={style.accountContainerText}>{requestData?.username}</Text>
                 </View>
                 <View>
                     <TouchableOpacity style={{flexDirection: "row", marginTop: 50}} onPress={logOut}>
