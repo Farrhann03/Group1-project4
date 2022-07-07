@@ -171,7 +171,8 @@ React.useEffect(() => {
     getUserDetails();
 }, []);
 const getUserDetails = async () => {
-    const userData = await AsyncStorage.getItem('user');
+    const userData = await API.get("/user", userDetails);
+    AsyncStorage.getItem('user');
     if (userData) {
         setUserDetails(JSON.parse(userData));
     }
