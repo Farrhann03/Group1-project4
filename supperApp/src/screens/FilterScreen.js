@@ -131,6 +131,7 @@ import {
   TouchableOpacity,
   SafeAreaView,
   ImageBackground,
+  SliderComponent,
 } from "react-native";
 import COLORS from "../consts/colors";
 import { ModalPicker } from "../consts/ModalPicker";
@@ -144,6 +145,7 @@ const FilterScreen = ({ navigation }) => {
   const [chooseLoc, setchooseLoc] = useState("");
   const [chooseCui, setchooseCui] = useState("");
   const [choosePri, setchoosePri] = useState("");
+  const [isFetching, setIsFetching] = useState(false);
   const [isLocModalVisible, setisLocModalVisible] = useState(false);
   const [isCuiModalVisible, setisCuiModalVisible] = useState(false);
   const [isPriModalVisible, setisPriModalVisible] = useState(false);
@@ -153,10 +155,12 @@ const FilterScreen = ({ navigation }) => {
       `/public/location/${chooseLoc}/${chooseCui}/${choosePri}`
     )
       .then((res) => res.data)
-      .then((data) => setRecord(data));
+      .then((data) => {
+        setIsFetching(false);
+        setRecord(data)});
   }, []);
 
-  
+  const sleep = (ms) => new Promise((res) => setTimeout(res, ms));
 
   const changeLocModalVisibility = (bool) => {
     setisLocModalVisible(bool);
@@ -178,9 +182,7 @@ const FilterScreen = ({ navigation }) => {
   const setPrice = (option) => {
     setchoosePri(option);
   };
-  const showMessage = () => {
-    refresh("refresh")
-  }
+
 
   console.log(record)
 
@@ -196,12 +198,13 @@ const FilterScreen = ({ navigation }) => {
           size={28}
           color={COLORS.dark}
           onPress={() => navigation.navigate("HomeScreen")}
-          style={{ paddingLeft: 10, top: -210, left: -170 }}
+          style={{ paddingLeft: 10, }}
         />
         
         {/* ****************Location************************************** */}
+        
         <TouchableOpacity
-          onPress={() => changeLocModalVisibility(true)}
+          onPress={(e) => {e.preventDefault(); changeLocModalVisibility(true)}}
           style={style.touchableOpacity}
         >
           <Text style={style.text}>location : {chooseLoc}</Text>
@@ -220,7 +223,7 @@ const FilterScreen = ({ navigation }) => {
 
         {/* ****************Cuisine************************************** */}
         <TouchableOpacity
-          onPress={() => changeCuiModalVisibility(true)}
+          onPress={(e) => {e.preventDefault(); changeCuiModalVisibility(true)}}
           style={style.touchableOpacity}
         >
           <Text style={style.text}>cuisine type : {chooseCui}</Text>
@@ -239,7 +242,7 @@ const FilterScreen = ({ navigation }) => {
 
         {/* ****************Price************************************** */}
         <TouchableOpacity
-          onPress={() => changePriModalVisibility(true)}
+          onPress={(e) => {e.preventDefault(); changePriModalVisibility(true)}}
           style={style.touchableOpacity}
         >
           <Text style={style.text}>price range : {choosePri}</Text>
@@ -277,14 +280,7 @@ const FilterScreen = ({ navigation }) => {
             );
           })}
         </View>
-        <View>
-           <TouchableOpacity style={style.button}>
-                 <Text 
-                    style={style.buttonText}
-                    onPress={showMessage}
-                   >Submit</Text>
-           </TouchableOpacity>     
-        </View>
+
       </ImageBackground>
     </SafeAreaView>
   );

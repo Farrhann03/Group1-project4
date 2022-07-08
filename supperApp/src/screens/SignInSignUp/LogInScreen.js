@@ -72,8 +72,8 @@ const LogInScreen = ({navigation}) => {
                 password:inputs.password
             }
             const userData = await API.post("/login/signin", requestData);
-            AsyncStorage.getItem("user");
-            navigation.navigate("HomeScreen");
+            console.log(requestData)
+            navigation.navigate("HomeScreen", requestData);
             Alert.alert("Logged in successfully");
             console.log("Logged in successfully", JSON.stringify({...userData, loggedIn: true}));
         }catch(e){
@@ -115,6 +115,7 @@ const LogInScreen = ({navigation}) => {
                     <Text style={styles.loginsubText}>Yet to create an account?</Text>
                     <Text onPress={() => navigation.navigate('SignUpScreen')} style={styles.loginText}>Sign Up</Text>
                 </Text>
+                <Text></Text>
             </View>
         </ScrollView>
     </SafeAreaView>
