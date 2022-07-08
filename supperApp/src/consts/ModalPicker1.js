@@ -32,7 +32,7 @@ const ModalPicker1 = (props) => {
       <TouchableOpacity
         style={style.option}
         key={index}
-        onPress={() => onPressItem(item)}
+        onPress={(e) => {e.preventDefault(); onPressItem(item)}}
       >
         <Text style={style.text}>{item}</Text>
       </TouchableOpacity>
