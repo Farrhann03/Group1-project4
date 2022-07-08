@@ -9,7 +9,11 @@ import Loader from './SignInSignUp/components/Loader';
 import Icon from "react-native-vector-icons/MaterialIcons";
 import API from './Api';
 
-const SubmitReviewScreen = ({navigation}) => {
+const SubmitReviewScreen = ({navigation, route}) => {
+
+    const place = route.params;
+    const requestData = route.params;
+
     const [submitReview, setSubmitReview] = React.useState({
         review: "",
     });
@@ -39,9 +43,12 @@ const SubmitReviewScreen = ({navigation}) => {
         setLoading(true);
 
         try {
-            await API.post("/user/newreview",{
+            const requestReviewData = {
+                location_id: place.id,
+                user_id: requestData.id,
                 review: submitReview.review,
-            });
+            }
+            await API.post("/user/newreview", requestReviewData);
             navigation.navigate("DetailsScreen");
         } catch(error) {
             Alert.alert("Error", "Something went wrong")

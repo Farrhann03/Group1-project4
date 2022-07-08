@@ -73,6 +73,7 @@ const LogInScreen = ({navigation}) => {
             }
             const userData = await API.post("/login/signin", requestData);
             console.log(requestData)
+            //pass requestData as props to homescreen
             navigation.navigate("HomeScreen", requestData);
             Alert.alert("Logged in successfully");
             console.log("Logged in successfully", JSON.stringify({...userData, loggedIn: true}));
