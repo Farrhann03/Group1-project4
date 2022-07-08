@@ -89,7 +89,8 @@ const DetailsScreen = ({navigation, route }) => {
                     Wallet damage: {place.priceId}
                 </Text>
             </View>
-            <TouchableOpacity style={style.reservationBtn} onPress={() => navigation.navigate("SubmitReviewScreen")}>
+            <TouchableOpacity style={style.reservationBtn} 
+            onPress={() => navigation.navigate("SubmitReviewScreen", place)}>
                 <Text 
                     style={{
                         color: COLORS.primary2, 

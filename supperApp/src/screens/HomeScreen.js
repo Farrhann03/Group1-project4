@@ -137,26 +137,20 @@ const Card = ({place}) => {
      )
  }
 
-const requestData = route.params
+const requestData = route.params;
 
-const [userDetails, setUserDetails] = React.useState();
-React.useEffect(() => {
-    getUserDetails();
-}, []);
-const getUserDetails = async () => {
-    const userData = await API.get("/user", userDetails);
-    AsyncStorage.getItem('user');
-    if (userData) {
-        setUserDetails(JSON.parse(userData));
+const logOut = async () => {
+    
+        const removeData = null;
+        
+        const logoutData = await API.post("/user/signout", removeData);
+        navigation.navigate("HomeScreen", removeData);
+        //Alert.alert("Logged out successfully");
+        console.log("Logged out successfully", JSON.stringify({...logoutData, loggedIn: false}));
+
+        navigation.navigate("LogInScreen");
     }
-};
-const logOut = () => {
-    AsyncStorage.setItem(
-        'user',
-        JSON.stringify({...userDetails, loggedIn: false}),
-    );
-    navigation.navigate("LogInScreen");
-};
+
 
     return  <SafeAreaView style={{flex:1, backgroundColor: COLORS.primary2}}>
                 <StatusBar translucent={false} backgroundColor={COLORS.white}/>
