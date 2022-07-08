@@ -101,7 +101,7 @@ const LogInScreen = ({navigation}) => {
           name="arrow-back-ios" 
           size={28} 
           color={COLORS.primary2} 
-          onPress={navigation.goBack}
+          onPress={() => navigation.navigate("HomeScreen")}
           style={{paddingLeft: 10}}
         />
         <Loader  visible={loading}/>
