@@ -7,7 +7,7 @@ import {
   Dimensions,
   ScrollView,
 } from "react-native";
-import COLORS from "./colors";
+import COLORS from "../colors";
 
 const LOCATION = ["North", "South", "East", "West", "Central"];
 const WIDTH = Dimensions.get("window").width;
