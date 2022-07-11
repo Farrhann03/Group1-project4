@@ -435,17 +435,17 @@ const style = StyleSheet.create({
     color: COLORS.white,
     paddingBottom: 15,
     marginLeft: 15,
-  }
-  // cardImage: {
-  //   height: 220,
-  //   width: width / 2,
-  //   marginRight: 20,
-  //   padding: 10,
-  //   overflow: 'hidden',
-  //   borderRadius: 10,
-  //   backgroundColor: COLORS.dark
-
-  // },
+  },
+  cardImage: {
+    height: 180,
+    width: width / 2.5,
+    marginRight: 20,
+    marginLeft: 20,
+    padding: 10,
+    overflow: 'hidden',
+    borderRadius: 10,
+    backgroundColor: COLORS.dark
+  },
 
 });
 
