@@ -15,6 +15,8 @@ const SubmitReviewScreen = ({navigation, route}) => {
     const requestData = route.params;
 
     const [submitReview, setSubmitReview] = React.useState({
+        location_id: place.id,
+        user_id: requestData.id,
         review: "",
     });
 
