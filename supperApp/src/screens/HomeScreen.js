@@ -20,7 +20,9 @@ import recommend from "../consts/recommended";
 import API from "./Api";
 const { width } = Dimensions.get("screen");
 
-const HomeScreen = ({ navigation, route }) => {
+
+//route is passed as params
+const HomeScreen = ({navigation, route}) => {
   const [places, setPlaces] = useState([]);
 
   useEffect(() => {
@@ -101,7 +103,29 @@ const HomeScreen = ({ navigation, route }) => {
             </View>
           </View>
         </ImageBackground>
-      </TouchableOpacity>
+     )
+ }
+
+ //route takes in paramaters passed from login
+const requestData = route.params
+
+const [userDetails, setUserDetails] = React.useState();
+React.useEffect(() => {
+    getUserDetails();
+}, []);
+const getUserDetails = async () => {
+    const userData = await API.get("/user", userDetails);
+    AsyncStorage.getItem('user');
+    if (userData) {
+        setUserDetails(requestData);
+    }
+};
+
+const logOut = () => {
+    API.post("/user/signout", requestData);
+    AsyncStorage.setItem(
+        'user',
+        JSON.stringify({...requestData, loggedIn: false}),
     );
   };
 

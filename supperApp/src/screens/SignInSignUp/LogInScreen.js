@@ -72,6 +72,9 @@ const LogInScreen = ({navigation}) => {
                 password:inputs.password
             }
             const userData = await API.post("/login/signin", requestData);
+            console.log(requestData)
+          
+            //pass requestData as props to homescreen
             navigation.navigate("HomeScreen", requestData);
             Alert.alert("Logged in successfully");
             //console.log("Logged in successfully", JSON.stringify({...userData, loggedIn: true}));
@@ -99,7 +102,7 @@ const LogInScreen = ({navigation}) => {
           name="arrow-back-ios" 
           size={28} 
           color={COLORS.primary2} 
-          onPress={navigation.goBack}
+          onPress={() => navigation.navigate("HomeScreen")}
           style={{paddingLeft: 10}}
         />
         <Loader  visible={loading}/>

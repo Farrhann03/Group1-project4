@@ -10,6 +10,7 @@ import Icon from "react-native-vector-icons/MaterialIcons";
 import API from './Api';
 
 const SubmitReviewScreen = ({navigation, route}) => {
+
     const place = route.params;
     const requestData = route.params;
 
@@ -42,11 +43,12 @@ const SubmitReviewScreen = ({navigation, route}) => {
         setLoading(true);
 
         try {
-            await API.post("/user/newreview",{
+            const requestReviewData = {
                 location_id: place.id,
                 user_id: requestData.id,
                 review: submitReview.review,
-            });
+            }
+            await API.post("/user/newreview", requestReviewData);
             navigation.navigate("DetailsScreen");
         } catch(error) {
             Alert.alert("Error", "Something went wrong")
