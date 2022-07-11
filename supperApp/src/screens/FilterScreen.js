@@ -181,7 +181,7 @@
 
 
 
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import {
   StyleSheet,
   Text,
@@ -190,10 +190,9 @@ import {
   TouchableOpacity,
   SafeAreaView,
   ImageBackground,
-  ScrollView,
   RefreshControl,
-  Button,
   FlatList,
+  Button,
   Dimensions,
 } from "react-native";
 import COLORS from "../consts/colors";
@@ -218,16 +217,17 @@ const FilterScreen = ({ navigation, route }) => {
 
   const [refreshing, setRefreshing] = useState(false);
   const place = route.params;
-  useEffect(() => {
-    API.get(
-      `/public/location/${chooseLoc}/${chooseCui}/${choosePri}`
-    )
+
+
+  const searchRecords = async () => {
+    await API
+    .get(`/public/location/${chooseLoc}/${chooseCui}/${choosePri}`)
       .then((res) => res.data)
       .then((data) => {
         setRefreshing(false);
         setRecord(data)});
         
-  }, []);
+  };
   
   const changeLocModalVisibility = (bool) => {
     setisLocModalVisible(bool);
@@ -404,11 +404,11 @@ const FilterScreen = ({ navigation, route }) => {
             refreshControl={
             <RefreshControl
               refreshing={refreshing}
-              onRefresh={() => onRefresh()}
+              onRefresh={() => searchRecords()}
             />}
           />
             <Text>Pull down to see RefreshControl indicator</Text>
-            {/* <Button title="Refresh" onPress={onRefresh}/> */}
+            {/* <Button title="Refresh" onPress={searchRecords}/> */}
          
 
           {/* <View>
