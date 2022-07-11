@@ -258,14 +258,15 @@ const FilterScreen = ({ navigation, route }) => {
 
     setTimeout(() => {
       setRefreshing(false)
-    }, 4000) 
+    }, 2000) 
   }
   
   console.log(record)
 
   const Card = ({record}) => {
     return (
-        <TouchableOpacity activeOpacity={0.8}>
+        <TouchableOpacity activeOpacity={0.8}
+         onPress={() => navigation.navigate("DetailsScreen", record)}>
         <ImageBackground
             style={style.cardImage}
             source={{uri:record.image}}
@@ -304,21 +305,6 @@ const FilterScreen = ({ navigation, route }) => {
         </TouchableOpacity>
     )
  }
-
-  // const Item =({name, address, located_at, cuisineId, priceId}) => {
-  //   return(
-  //     <View>
-  //       <Text style={style.text}>
-  //         {name}
-  //         {address}
-  //         {located_at}
-  //         {cuisineId}
-  //         {priceId}
-                  
-  //       </Text>r
-  //     </View>
-  //   )
-  // }
 
   return (
     <SafeAreaView style={style.container}>
@@ -408,28 +394,8 @@ const FilterScreen = ({ navigation, route }) => {
             />}
           />
             <Text>Pull down to see RefreshControl indicator</Text>
-            {/* <Button title="Refresh" onPress={searchRecords}/> */}
-         
+            <Button title="search" onPress={searchRecords}/>
 
-          {/* <View>
-          <Text style={style.text}>
-            Name Address Located_at Cuisine Price
-          </Text>
-          {record.map((item, index) => {
-            return (
-              <TouchableOpacity style={style.option} key={index}>
-                <Text style={style.text}>
-                  {item.name}
-                  {item.address}r
-                  {item.located_at}
-                  {item.cuisineId}
-                  {item.priceId}r
-                  
-                </Text>
-              </TouchableOpacity>
-            );
-          })}
-        </View>           */}
         </ImageBackground>
 
       
