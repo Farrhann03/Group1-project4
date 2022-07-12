@@ -1,7 +1,7 @@
 import axios from 'axios';
 import React from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { SafeAreaView, StyleSheet, ScrollView, Text, View, Alert, InputAccessoryView } from "react-native";
+import { SafeAreaView, StyleSheet, ScrollView, Text, View, Alert } from "react-native";
 import COLORS from '../consts/colors';
 import ReviewInput from './SignInSignUp/components/ReviewInput';
 import Button from './SignInSignUp/components/Button';

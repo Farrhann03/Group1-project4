@@ -8,7 +8,7 @@ import {
   Text,
   TouchableOpacity,
   FlatList,
-  Item,
+
 } from "react-native";
 import Icon from "react-native-vector-icons/MaterialIcons";
 import COLORS from "../consts/colors";

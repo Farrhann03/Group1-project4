@@ -1,11 +1,9 @@
-import axios from "axios";
 import { SafeAreaView, StatusBar, StyleSheet, View, ScrollView, Text, ImageBackground, FlatList, TextInput, Dimensions, Animated, Image } from "react-native";
 import Icon from "react-native-vector-icons/MaterialIcons";
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import React, { useRef, useEffect, useState } from "react";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import COLORS from "../consts/colors";
-import SignUpScreen from '../screens/SignInSignUp/SignUpScreen'
 import recommend from "../consts/recommended";
 import API from "./Api";
 const {width} = Dimensions.get('screen');
@@ -47,13 +45,6 @@ const HomeScreen = ({navigation, route}) => {
             ))}
         </View>
     }
-
-    //for account log drawer status and logout
-    const [inputs, setInputs] = React.useState({
-        username: "",
-        email: "",
-        password: "",
-    });
 
 const Card = ({place}) => {
     return (
@@ -139,42 +130,28 @@ const Card = ({place}) => {
  }
 
  //route takes in paramaters passed from login
-  const requestData = route.params
+const requestData = route.params
 
-  const [userDetails, setUserDetails] = React.useState();
-    React.useEffect(() => {
-        getUserDetails();
-    }, []);
-    const getUserDetails = async () => {
-        const userData = await API.get("/user", userDetails);
-        AsyncStorage.getItem('user');
-        if (userData) {
-            setUserDetails(requestData);
-        }
-    };
+const [userDetails, setUserDetails] = React.useState();
+React.useEffect(() => {
+    getUserDetails();
+}, []);
+const getUserDetails = async () => {
+    const userData = await API.get("/user", userDetails);
+    AsyncStorage.getItem('user');
+    if (userData) {
+        setUserDetails(requestData);
+    }
+};
 
-  const logOut = () => {
-      API.post("/user/signout", requestData);
-      AsyncStorage.setItem(
-          'user',
-          JSON.stringify({...requestData, loggedIn: false}),
-      );
-      navigation.navigate("LogInScreen");
-  };
-
-  // const place = route.params;
-  // const [ filterRestaurants, setFilterRestaurants ] = React.useState({
-  //   allRestaurants: place.name,
-  //   restaurantsFiltered: place.name,
-  // });
-
-  // const searchRestaurants = (textToSearch) => {
-  //   setFilterRestaurants({
-  //     restaurantsFiltered: allRestaurants.filter(i => 
-  //       i.name.toUpperCase().includes(textToSearch.toUpperCase()),
-  //     ),
-  //   });
-  // }
+const logOut = () => {
+    API.post("/user/signout", requestData);
+    AsyncStorage.setItem(
+        'user',
+        JSON.stringify({...requestData, loggedIn: false}),
+    );
+    navigation.navigate("LogInScreen");
+};
 
     return  <SafeAreaView style={{flex:1, backgroundColor: COLORS.primary2}}>
                 <StatusBar translucent={false} backgroundColor={COLORS.white}/>
@@ -187,14 +164,6 @@ const Card = ({place}) => {
                     <TouchableOpacity style={{flexDirection: "row", marginTop: 50}} onPress={logOut}>
                         <Icon style={{marginLeft: 10, marginTop: 9.8}}name="logout" size={28} color={COLORS.white}/>
                         <Text style={style.accountContainerText}>Log out</Text>
-                    </TouchableOpacity>
-                    <TouchableOpacity style={{flexDirection: "row", marginTop: 50}} onPress={()=>navigation.navigate("LogInScreen")}>
-                        <Icon style={{marginLeft: 10, marginTop: 9.8}}name="login" size={28} color={COLORS.white}/>
-                        <Text style={style.accountContainerText}>Login</Text>
-                    </TouchableOpacity>
-                    <TouchableOpacity style={{flexDirection: "row", marginTop: 5}} onPress={()=>navigation.navigate("SignUpScreen")}>
-                        <Icon style={{marginLeft: 10, marginTop: 9.8}}name="person" size={28} color={COLORS.white}/>
-                        <Text style={style.accountContainerText}>Sign Up</Text>
                     </TouchableOpacity>
                 </View>
                 
@@ -253,7 +222,6 @@ const Card = ({place}) => {
                     <TextInput 
                         placeholder="Search Restaurants"
                         style={{color: COLORS.grey}}
-                        // onChangeText={(text) => {searchRestaurants(text)}}
                         />
                     </View>
                 </View>
@@ -361,5 +329,4 @@ const style = StyleSheet.create({
         backgroundColor: COLORS.dark
     }
 });
-
 export default HomeScreen
