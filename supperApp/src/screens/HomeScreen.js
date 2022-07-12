@@ -165,6 +165,14 @@ const logOut = () => {
                         <Icon style={{marginLeft: 10, marginTop: 9.8}}name="logout" size={28} color={COLORS.white}/>
                         <Text style={style.accountContainerText}>Log out</Text>
                     </TouchableOpacity>
+                    <TouchableOpacity style={{flexDirection: "row", marginTop: 50}} onPress={()=>navigation.navigate("LogInScreen")}>
+                        <Icon style={{marginLeft: 10, marginTop: 9.8}}name="login" size={28} color={COLORS.white}/>
+                        <Text style={style.accountContainerText}>Login</Text>
+                    </TouchableOpacity>
+                    <TouchableOpacity style={{flexDirection: "row", marginTop: 5}} onPress={()=>navigation.navigate("SignUpScreen")}>
+                        <Icon style={{marginLeft: 10, marginTop: 9.8}}name="person" size={28} color={COLORS.white}/>
+                        <Text style={style.accountContainerText}>Sign Up</Text>
+                    </TouchableOpacity>
                 </View>
                 
             </View>
