@@ -1,7 +1,6 @@
 import React from 'react';
 import {View, StyleSheet, ImageBackground, StatusBar, Text, Image} from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
-import { Colors } from 'react-native/Libraries/NewAppScreen';
 import COLORS from '../consts/colors';
 
 const OnBoardScreen = ({navigation}) => {
