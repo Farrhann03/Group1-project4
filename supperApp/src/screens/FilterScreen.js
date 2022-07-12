@@ -9,7 +9,6 @@ import {
   ImageBackground,
   RefreshControl,
   FlatList,
-  Button,
   Dimensions,
 } from "react-native";
 import COLORS from "../consts/colors";
@@ -18,6 +17,8 @@ import { ModalPicker1 } from "../consts/Modal/CuisineFilter";
 import { ModalPicker2 } from "../consts/Modal/PriceFilter";
 import Icon from "react-native-vector-icons/MaterialIcons";
 import API from "./Api";
+import Button from "./SignInSignUp/components/Button";
+
 const {width} = Dimensions.get('screen');
 
 
@@ -134,9 +135,9 @@ const FilterScreen = ({ navigation, route }) => {
         <Icon
           name="arrow-back-ios"
           size={28}
-          color={COLORS.dark}
+          color={COLORS.white}
           onPress={() => navigation.navigate("HomeScreen")}
-          style={{ paddingLeft: 10, }}
+          style={{ paddingLeft: 5, paddingTop: 10 }}
         />
         
         
@@ -210,8 +211,11 @@ const FilterScreen = ({ navigation, route }) => {
               onRefresh={() => searchRecords()}
             />}
           />
-            <Text>Pull down to see RefreshControl indicator</Text>
-            <Button title="search" onPress={searchRecords}/>
+          <View>
+            <Button title="Search" onPress={searchRecords}/>
+            <Text style={style.footer}>Pull down to see RefreshControl indicator</Text>
+          </View>
+
 
         </ImageBackground>
 
@@ -223,6 +227,7 @@ const FilterScreen = ({ navigation, route }) => {
 const style = StyleSheet.create({
   container: {
     flex: 1,
+    backgroundColor: COLORS.primary2
   },
   text: {
     marginVertical: 20,
@@ -241,16 +246,23 @@ const style = StyleSheet.create({
   arrow: {
     fontSize: 23,
   },
-  // cardImage: {
-  //   height: 220,
-  //   width: width / 2,
-  //   marginRight: 20,
-  //   padding: 10,
-  //   overflow: 'hidden',
-  //   borderRadius: 10,
-  //   backgroundColor: COLORS.dark
-
-  // },
+  footer: {
+    alignContent: "center",
+    justifyContent: "center",
+    color: COLORS.white,
+    paddingBottom: 15,
+    marginLeft: 15,
+  },
+  cardImage: {
+    height: 180,
+    width: width / 2.5,
+    marginRight: 20,
+    marginLeft: 20,
+    padding: 10,
+    overflow: 'hidden',
+    borderRadius: 10,
+    backgroundColor: COLORS.dark
+  },
 
 });
 

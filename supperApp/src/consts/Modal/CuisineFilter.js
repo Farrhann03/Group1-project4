@@ -45,7 +45,7 @@ const ModalPicker1 = (props) => {
         onPress={() => props.changeCuiModalVisibility(true)}
         style={style.container}
       >
-        <View style={[style.modal, { width: WIDTH - 20, height: HEIGHT / 2 }]}>
+        <View style={[style.modal, { marginTop: 60 ,width: WIDTH - 20, height: HEIGHT / 2 }]}>
           <ScrollView>
             <View>{cuisine}</View>
           </ScrollView>

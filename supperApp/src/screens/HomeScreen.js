@@ -110,111 +110,68 @@ const HomeScreen = ({ navigation, route }) => {
     );
   };
 
-  const RecommendedCard = ({ recommend }) => {
-    return (
-      <ImageBackground
-        style={style.rmCardImage}
-        source={recommend.image}
-        imageStyle={{ opacity: 0.7 }}
-      >
-        <Text
-          style={{
-            color: COLORS.white,
-            fontSize: 22,
-            fontWeight: "bold",
-            marginTop: 10,
-          }}
-        >
-          {recommend.name}
-        </Text>
-        <View
-          style={{
-            flex: 1,
-            justifyContent: "space-between",
-            alignItems: "flex-end",
-          }}
-        >
-          <View style={{ width: "100%", flexDirection: "row", marginTop: 10 }}>
-            <View style={{ flexDirection: "row" }}>
-              <Icon name="place" size={22} color={COLORS.white} />
-              <Text style={{ color: COLORS.white, marginLeft: 5 }}>
-                {recommend.location}
-              </Text>
-            </View>
-            <View style={{ flexDirection: "row" }}>
-              <Icon name="star" size={22} color={COLORS.white} />
-              <Text style={{ color: COLORS.white, marginLeft: 5 }}>
-                {recommend.rating}
-              </Text>
-            </View>
-          </View>
-          <Text style={{ color: COLORS.white, fontSize: 13 }}>
-            {recommend.details}
-          </Text>
-        </View>
-      </ImageBackground>
-    );
-  };
-
-  //route takes in paramaters passed from login
-  const requestData = route.params;
+ //route takes in paramaters passed from login
+  const requestData = route.params
 
   const [userDetails, setUserDetails] = React.useState();
-  React.useEffect(() => {
-    getUserDetails();
-  }, []);
-  const getUserDetails = async () => {
-    const userData = await API.get("/user", userDetails);
-    AsyncStorage.getItem("user");
-    if (userData) {
-      setUserDetails(requestData);
-    }
-  };
+    React.useEffect(() => {
+        getUserDetails();
+    }, []);
+    const getUserDetails = async () => {
+        const userData = await API.get("/user", userDetails);
+        AsyncStorage.getItem('user');
+        if (userData) {
+            setUserDetails(requestData);
+        }
+    };
 
   const logOut = () => {
-    API.post("/user/signout", requestData);
-    AsyncStorage.setItem(
-      "user",
-      JSON.stringify({ ...requestData, loggedIn: false })
-    );
-    navigation.navigate("LogInScreen");
+      API.post("/user/signout", requestData);
+      AsyncStorage.setItem(
+          'user',
+          JSON.stringify({...requestData, loggedIn: false}),
+      );
+      navigation.navigate("LogInScreen");
   };
 
-  return (
-    <SafeAreaView style={{ flex: 1, backgroundColor: COLORS.primary2 }}>
-      <StatusBar translucent={false} backgroundColor={COLORS.white} />
-      <View style={style.accountContainer}>
-        <View>
-          <Text
-            style={{
-              fontSize: 12,
-              paddingTop: 10,
-              paddingLeft: 15,
-              color: COLORS.white,
-            }}
-          >
-            Welcome,
-          </Text>
-          <Text style={style.accountContainerText}>
-            {requestData?.username}
-          </Text>
-        </View>
-        <View>
-          <TouchableOpacity
-            style={{ flexDirection: "row", marginTop: 50 }}
-            onPress={logOut}
-          >
-            <Icon
-              style={{ marginLeft: 10, marginTop: 9.8 }}
-              name="logout"
-              size={28}
-              color={COLORS.white}
-            />
-            <Text style={style.accountContainerText}>Log out</Text>
-          </TouchableOpacity>
-        </View>
-      </View>
+  // const place = route.params;
+  // const [ filterRestaurants, setFilterRestaurants ] = React.useState({
+  //   allRestaurants: place.name,
+  //   restaurantsFiltered: place.name,
+  // });
 
+  // const searchRestaurants = (textToSearch) => {
+  //   setFilterRestaurants({
+  //     restaurantsFiltered: allRestaurants.filter(i => 
+  //       i.name.toUpperCase().includes(textToSearch.toUpperCase()),
+  //     ),
+  //   });
+  // }
+
+    return  <SafeAreaView style={{flex:1, backgroundColor: COLORS.primary2}}>
+                <StatusBar translucent={false} backgroundColor={COLORS.white}/>
+            <View style={style.accountContainer}>
+                <View>
+                    <Text style={{fontSize: 12, paddingTop: 10, paddingLeft: 15,color: COLORS.white}}>Welcome,</Text>
+                    <Text style={style.accountContainerText}>{requestData?.username}</Text>
+                </View>
+                <View>
+                    <TouchableOpacity style={{flexDirection: "row", marginTop: 50}} onPress={logOut}>
+                        <Icon style={{marginLeft: 10, marginTop: 9.8}}name="logout" size={28} color={COLORS.white}/>
+                        <Text style={style.accountContainerText}>Log out</Text>
+                    </TouchableOpacity>
+                    <TouchableOpacity style={{flexDirection: "row", marginTop: 50}} onPress={()=>navigation.navigate("LogInScreen")}>
+                        <Icon style={{marginLeft: 10, marginTop: 9.8}}name="login" size={28} color={COLORS.white}/>
+                        <Text style={style.accountContainerText}>Login</Text>
+                    </TouchableOpacity>
+                    <TouchableOpacity style={{flexDirection: "row", marginTop: 5}} onPress={()=>navigation.navigate("SignUpScreen")}>
+                        <Icon style={{marginLeft: 10, marginTop: 9.8}}name="person" size={28} color={COLORS.white}/>
+                        <Text style={style.accountContainerText}>Sign Up</Text>
+                    </TouchableOpacity>
+                </View>
+                
+            </View>
+        
       <Animated.View
         style={{
           flexGrow: 1,
@@ -263,28 +220,37 @@ const HomeScreen = ({ navigation, route }) => {
           />
         </View>
         <ScrollView showsVerticalScrollIndicator={false}>
-          <View
-            style={{
-              backgroundColor: COLORS.primary2,
-              height: 120,
-              paddingHorizontal: 20,
-            }}
-          >
-            <View style={{ flex: 1 }}>
-              <Text style={style.headerTitle}>Fulfil your</Text>
-              <Text style={style.headerTitle}>midnight cravings</Text>
-              <View style={style.inputContainer}>
-                <Icon name="search" size={28} />
-                <TextInput
-                  placeholder="Search Restaurants"
-                  style={{ color: COLORS.grey }}
-                  onChangeText={(text) => {
-                    Card(text);
-                  }}
+            <View 
+                style={{
+                    backgroundColor:COLORS.primary2, 
+                    height: 120, 
+                    paddingHorizontal: 20
+                }}>
+                <View style={{flex: 1}}>
+                    <Text style={style.headerTitle}>Fulfil your</Text>
+                    <Text style={style.headerTitle}>midnight cravings</Text>
+                    <View style={style.inputContainer}>
+                    <Icon name='search' size={28} />
+                    <TextInput 
+                        placeholder="Search Restaurants"
+                        style={{color: COLORS.grey}}
+                        // onChangeText={(text) => {searchRestaurants(text)}}
+                        />
+                    </View>
+                </View>
+            </View>
+        <ListCategories />
+            <Text style={style.sectionTitle}>Restaurants</Text>
+            <View>
+                <FlatList 
+                    contentContainerStyle={{paddingLeft: 20}}
+                    horizontal
+                    showsHorizontalScrollIndicator={false}
+                    data={places}
+                    renderItem={({item}) => <Card place={item} />} 
+                    
                 />
               </View>
-            </View>
-          </View>
           <ListCategories />
           <Text style={style.sectionTitle}>Restaurants</Text>
           <View>
@@ -308,8 +274,7 @@ const HomeScreen = ({ navigation, route }) => {
         </ScrollView>
       </Animated.View>
     </SafeAreaView>
-  );
-};
+}
 
 const style = StyleSheet.create({
   header: {
@@ -388,4 +353,5 @@ const style = StyleSheet.create({
     backgroundColor: COLORS.dark,
   },
 });
-export default HomeScreen;
+
+export default HomeScreen
