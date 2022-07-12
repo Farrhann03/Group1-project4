@@ -254,10 +254,11 @@ const style = StyleSheet.create({
     marginLeft: 15,
   },
   cardImage: {
-    height: 180,
+    height: 140,
     width: width / 2.5,
     marginRight: 20,
     marginLeft: 20,
+    marginBottom: 10,
     padding: 10,
     overflow: 'hidden',
     borderRadius: 10,

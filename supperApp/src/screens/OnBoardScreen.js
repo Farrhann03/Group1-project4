@@ -13,7 +13,7 @@ const OnBoardScreen = ({navigation}) => {
         source={require('../assets/Brine_001.jpeg')}
         imageStyle={{opacity: 0.7}}>
             <View>
-                <Image style={{width: 335, height: 250, marginLeft: 55, marginTop: 150}} source={require('../assets/Suppermakanapa-logo.png')}/>
+                <Image style={{width: 335, height: 250, marginLeft: 45, marginTop: 80}} source={require('../assets/Suppermakanapa-logo.png')}/>
             </View>
         <View style={style.details}>
             <Text style={{color: COLORS.white, fontSize: 35, fontWeight: 'bold'}}>
