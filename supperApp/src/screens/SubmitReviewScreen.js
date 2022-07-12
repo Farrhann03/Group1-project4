@@ -15,8 +15,8 @@ const SubmitReviewScreen = ({navigation, route}) => {
     const requestData = route.params;
 
     const [submitReview, setSubmitReview] = React.useState({
-        location_id: place.id,
-        user_id: requestData.id,
+        location_id: "",
+        user_id: "",
         review: "",
     });
 
@@ -51,7 +51,7 @@ const SubmitReviewScreen = ({navigation, route}) => {
                 review: submitReview.review,
             }
             await API.post("/user/newreview", requestReviewData);
-            navigation.navigate("DetailsScreen");
+            navigation.navigate("HomeScreen");
         } catch(error) {
             Alert.alert("Error", "Something went wrong")
         }
