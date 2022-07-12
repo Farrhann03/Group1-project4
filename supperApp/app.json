@@ -25,10 +25,10 @@
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
-        "backgroundColor": "#FFFFFF",
-        "package": "com.group1.suppermakanapa",
+        "backgroundColor": "#FFFFFF"
+      },
+      "package": "com.group1.suppermakanapa",
       "versionCode": 1
-      }
     },
     "web": {
       "favicon": "./assets/favicon.png"
