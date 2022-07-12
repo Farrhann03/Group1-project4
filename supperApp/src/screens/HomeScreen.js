@@ -139,28 +139,42 @@ const Card = ({place}) => {
  }
 
  //route takes in paramaters passed from login
-const requestData = route.params
+  const requestData = route.params
 
-const [userDetails, setUserDetails] = React.useState();
-React.useEffect(() => {
-    getUserDetails();
-}, []);
-const getUserDetails = async () => {
-    const userData = await API.get("/user", userDetails);
-    AsyncStorage.getItem('user');
-    if (userData) {
-        setUserDetails(requestData);
-    }
-};
+  const [userDetails, setUserDetails] = React.useState();
+    React.useEffect(() => {
+        getUserDetails();
+    }, []);
+    const getUserDetails = async () => {
+        const userData = await API.get("/user", userDetails);
+        AsyncStorage.getItem('user');
+        if (userData) {
+            setUserDetails(requestData);
+        }
+    };
 
-const logOut = () => {
-    API.post("/user/signout", requestData);
-    AsyncStorage.setItem(
-        'user',
-        JSON.stringify({...requestData, loggedIn: false}),
-    );
-    navigation.navigate("LogInScreen");
-};
+  const logOut = () => {
+      API.post("/user/signout", requestData);
+      AsyncStorage.setItem(
+          'user',
+          JSON.stringify({...requestData, loggedIn: false}),
+      );
+      navigation.navigate("LogInScreen");
+  };
+
+  // const place = route.params;
+  // const [ filterRestaurants, setFilterRestaurants ] = React.useState({
+  //   allRestaurants: place.name,
+  //   restaurantsFiltered: place.name,
+  // });
+
+  // const searchRestaurants = (textToSearch) => {
+  //   setFilterRestaurants({
+  //     restaurantsFiltered: allRestaurants.filter(i => 
+  //       i.name.toUpperCase().includes(textToSearch.toUpperCase()),
+  //     ),
+  //   });
+  // }
 
     return  <SafeAreaView style={{flex:1, backgroundColor: COLORS.primary2}}>
                 <StatusBar translucent={false} backgroundColor={COLORS.white}/>
@@ -239,6 +253,7 @@ const logOut = () => {
                     <TextInput 
                         placeholder="Search Restaurants"
                         style={{color: COLORS.grey}}
+                        // onChangeText={(text) => {searchRestaurants(text)}}
                         />
                     </View>
                 </View>
@@ -346,4 +361,5 @@ const style = StyleSheet.create({
         backgroundColor: COLORS.dark
     }
 });
+
 export default HomeScreen
