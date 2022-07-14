@@ -1,4 +1,4 @@
-import { SafeAreaView, StatusBar, RefreshControl, StyleSheet, View, ScrollView, Button, Text, ImageBackground, FlatList, TextInput, Dimensions, Animated, Image } from "react-native";
+import { SafeAreaView, StatusBar, StyleSheet, View, ScrollView, Text, ImageBackground, FlatList, TextInput, Dimensions, Animated, Image } from "react-native";
 import Icon from "react-native-vector-icons/MaterialIcons";
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import React, { useRef, useEffect, useState } from "react";
@@ -12,32 +12,13 @@ const {width} = Dimensions.get('screen');
 const HomeScreen = ({navigation, route}) => {
 
     const [places, setPlaces] = useState([]);
-    const [name, setName] = useState("");
-    const [refreshing, setRefreshing] = useState(false);
 
-    const searchRecords = async () => {
-        await API
-        .get(`/public/location/${name}`)
-          .then((res) => res.data)
-          .then((data) => {
-            setRefreshing(false);
-            setPlaces(data)});
-            setTimeout(() => {
-                setRefreshing(false)
-              }, 2000) 
-      
-            
-      };
-        useEffect(() => {
-            API.get(`/public/location/`)
-            .then((res) => res.data)
-            .then((data) => setPlaces(data));
-        }, []);
+    useEffect(() => {
+      API.get("/public/location")
+        .then((res) => res.data)
+        .then((data) => setPlaces(data));
+    }, []);
 
-
-        const changeHandler = (val) => {
-            setName(val);
-        }
 
     const [currentTab, setCurrentTab] = useState("Home");
     // To get the curretn Status of menu ...
@@ -106,9 +87,8 @@ const Card = ({place}) => {
         </TouchableOpacity>
     )
  }
- 
+
  const RecommendedCard = ({recommend}) => {
-    
      return (
         <ImageBackground 
             style={style.rmCardImage} 
@@ -249,13 +229,8 @@ const logOut = () => {
                     <Icon name='search' size={28} />
                     <TextInput 
                         placeholder="Search Restaurants"
-                        onChangeText={changeHandler}
-                        value={name}
                         style={{color: COLORS.grey}}
                         />
-                       <Button onPress={() => {
-                        searchRecords(name) 
-                        setName("")}} title="Search" />
                     </View>
                 </View>
             </View>
@@ -268,11 +243,7 @@ const logOut = () => {
                     showsHorizontalScrollIndicator={false}
                     data={places}
                     renderItem={({item}) => <Card place={item} />} 
-                    // refreshControl={
-                    //     <RefreshControl
-                    //       refreshing={refreshing}
-                    //       onRefresh={() => searchRecords()}
-                    //     />}
+                    
                 />
                 <Text style={style.sectionTitle}>Recommended</Text>
                 <FlatList 
