@@ -2,10 +2,8 @@
 
 Supper makan apa? React native app project
 
-Added new dependencies require to run in terminal: 
+To run app,
 
-yarn add react-native-reanimated@next react-native-gesture-handler
+cd supperApp
 
-expo r -c
-
-update files
+expo run start
