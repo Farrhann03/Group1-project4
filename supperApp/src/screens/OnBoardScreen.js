@@ -22,10 +22,10 @@ const OnBoardScreen = ({navigation}) => {
                 on an exciting journey with us
             </Text>
             <Text style={style.desc}>
-                Lorem ipsum crap that i'm lazy to even google at this point i'm seriously just questioning life.
+                Let's help you find food according to your tastes!
             </Text>
             <TouchableOpacity activeOpacity={0.8} 
-            onPress={()=>navigation.navigate("HomeScreen")}>
+            onPress={()=>navigation.navigate("LogInScreen")}>
             <View style={style.btn}>
                 <Text style={{fontWeight: 'bold'}}>Get Started</Text>
             </View>
@@ -47,7 +47,8 @@ const style = StyleSheet.create({
         color: 'white',
         lineHeight: 25,
         marginTop: 15,
-        backgroundColor: '#D95FAA'
+        backgroundColor: '#D95FAA',
+        padding: 5
     },
     btn: {
         height: 50,

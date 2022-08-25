@@ -88,46 +88,46 @@ const Card = ({place}) => {
     )
  }
 
- const RecommendedCard = ({recommend}) => {
-     return (
-        <ImageBackground 
-            style={style.rmCardImage} 
-            source={recommend.image}
-            imageStyle={{opacity: 0.7}}>
-            <Text 
-                style={{
-                    color: COLORS.white, 
-                    fontSize: 22, 
-                    fontWeight: 'bold',
-                    marginTop: 10,
-                    }}>
-                {recommend.name}
-            </Text>
-            <View 
-                style={{
-                    flex: 1,
-                    justifyContent: 'space-between',
-                    alignItems: 'flex-end',
-                    }}>
-                <View style={{width: '100%', flexDirection: 'row', marginTop: 10}}>
-                <View style={{flexDirection: 'row'}}>
-                    <Icon name='place' size={22} color={COLORS.white} />
-                    <Text style={{color: COLORS.white, marginLeft: 5}}>
-                        {recommend.location}
-                    </Text>
-                </View>
-                <View style={{flexDirection: 'row'}}>
-                    <Icon name='star' size={22} color={COLORS.white} />
-                    <Text style={{color: COLORS.white, marginLeft: 5}}>{recommend.rating}</Text>
-                </View>
-                </View> 
-                <Text style={{color: COLORS.white, fontSize: 13}}>
-                    {recommend.details}
-                </Text>                      
-            </View>
-        </ImageBackground>
-     )
- }
+//  const RecommendedCard = ({recommend}) => {
+//      return (
+//         <ImageBackground 
+//             style={style.rmCardImage} 
+//             source={recommend.image}
+//             imageStyle={{opacity: 0.7}}>
+//             <Text 
+//                 style={{
+//                     color: COLORS.white, 
+//                     fontSize: 22, 
+//                     fontWeight: 'bold',
+//                     marginTop: 10,
+//                     }}>
+//                 {recommend.name}
+//             </Text>
+//             <View 
+//                 style={{
+//                     flex: 1,
+//                     justifyContent: 'space-between',
+//                     alignItems: 'flex-end',
+//                     }}>
+//                 <View style={{width: '100%', flexDirection: 'row', marginTop: 10}}>
+//                 <View style={{flexDirection: 'row'}}>
+//                     <Icon name='place' size={22} color={COLORS.white} />
+//                     <Text style={{color: COLORS.white, marginLeft: 5}}>
+//                         {recommend.location}
+//                     </Text>
+//                 </View>
+//                 <View style={{flexDirection: 'row'}}>
+//                     <Icon name='star' size={22} color={COLORS.white} />
+//                     <Text style={{color: COLORS.white, marginLeft: 5}}>{recommend.rating}</Text>
+//                 </View>
+//                 </View> 
+//                 <Text style={{color: COLORS.white, fontSize: 13}}>
+//                     {recommend.details}
+//                 </Text>                      
+//             </View>
+//         </ImageBackground>
+//      )
+//  }
 
  //route takes in paramaters passed from login
 const requestData = route.params
@@ -164,14 +164,6 @@ const logOut = () => {
                     <TouchableOpacity style={{flexDirection: "row", marginTop: 50}} onPress={logOut}>
                         <Icon style={{marginLeft: 10, marginTop: 9.8}}name="logout" size={28} color={COLORS.white}/>
                         <Text style={style.accountContainerText}>Log out</Text>
-                    </TouchableOpacity>
-                    <TouchableOpacity style={{flexDirection: "row", marginTop: 50}} onPress={()=>navigation.navigate("LogInScreen")}>
-                        <Icon style={{marginLeft: 10, marginTop: 9.8}}name="login" size={28} color={COLORS.white}/>
-                        <Text style={style.accountContainerText}>Login</Text>
-                    </TouchableOpacity>
-                    <TouchableOpacity style={{flexDirection: "row", marginTop: 5}} onPress={()=>navigation.navigate("SignUpScreen")}>
-                        <Icon style={{marginLeft: 10, marginTop: 9.8}}name="person" size={28} color={COLORS.white}/>
-                        <Text style={style.accountContainerText}>Sign Up</Text>
                     </TouchableOpacity>
                 </View>
                 
@@ -234,25 +226,26 @@ const logOut = () => {
                     </View>
                 </View>
             </View>
-        <ListCategories />
+        {/* <ListCategories /> */}
             <Text style={style.sectionTitle}>Restaurants</Text>
             <View>
                 <FlatList 
                     contentContainerStyle={{paddingLeft: 20}}
-                    horizontal
+                    vertical
                     showsHorizontalScrollIndicator={false}
                     data={places}
                     renderItem={({item}) => <Card place={item} />} 
                     
                 />
-                <Text style={style.sectionTitle}>Recommended</Text>
+                {/* <Text style={style.sectionTitle}>Recommended</Text>
                 <FlatList 
                     snapToInterval={width - 20}
                     contentContainerStyle={{paddingLeft: 20, paddingBottom: 20}}
                     showsHorizontalScrollIndicator={false}
                     horizontal
                     data={recommend} 
-                    renderItem={({item}) => <RecommendedCard recommend={item}/>} />
+                    renderItem={({item}) => <RecommendedCard recommend={item}/>} 
+                    /> */}
             </View>
             </ScrollView>
         </Animated.View>
@@ -317,11 +310,13 @@ const style = StyleSheet.create({
         marginVertical: 20,
         fontWeight: 'bold',
         fontSize: 20,
+        paddingTop: 40
     },
     cardImage: {
-        height: 220,
-        width: width / 2,
+        height: 150,
+        width: width - 40,
         marginRight: 20,
+        marginBottom: 20,
         padding: 10,
         overflow: 'hidden',
         borderRadius: 10,
