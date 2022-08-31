@@ -12,12 +12,17 @@ const {width} = Dimensions.get('screen');
 const HomeScreen = ({navigation, route}) => {
 
     const [places, setPlaces] = useState([]);
+    const [name, setName] = useState("");
 
     useEffect(() => {
       API.get("/public/location")
         .then((res) => res.data)
         .then((data) => setPlaces(data));
     }, []);
+
+    const onChangeHandler = (val) => {
+        setName(val.toUpperCase());
+    };
 
 
     const [currentTab, setCurrentTab] = useState("Home");
@@ -207,7 +212,6 @@ const logOut = () => {
         <Image style={{width: 17, height: 30, marginTop: 22}} source={require("../assets/Suppermakanapa-icon.png")} />
         <Icon style={{marginTop: 20, marginRight: 5 }} name="filter-alt" size={28} color={COLORS.white} onPress={()=>navigation.navigate("FilterScreen", places)} />
     </View>
-        <ScrollView showsVerticalScrollIndicator={false}>
             <View 
                 style={{
                     backgroundColor:COLORS.primary2, 
@@ -221,6 +225,8 @@ const logOut = () => {
                     <Icon name='search' size={28} />
                     <TextInput 
                         placeholder="Search Restaurants"
+                        onChangeText={onChangeHandler}
+                        value={name}
                         style={{color: COLORS.grey}}
                         />
                     </View>
@@ -233,7 +239,7 @@ const logOut = () => {
                     contentContainerStyle={{paddingLeft: 20}}
                     vertical
                     showsHorizontalScrollIndicator={false}
-                    data={places}
+                    data={places.filter(place => place.name.toUpperCase().includes(name))}
                     renderItem={({item}) => <Card place={item} />} 
                     
                 />
@@ -247,7 +253,6 @@ const logOut = () => {
                     renderItem={({item}) => <RecommendedCard recommend={item}/>} 
                     /> */}
             </View>
-            </ScrollView>
         </Animated.View>
     </SafeAreaView>;
 
