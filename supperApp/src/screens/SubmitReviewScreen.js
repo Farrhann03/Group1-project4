@@ -8,11 +8,12 @@ import Button from './SignInSignUp/components/Button';
 import Loader from './SignInSignUp/components/Loader';
 import Icon from "react-native-vector-icons/MaterialIcons";
 import API from './Api';
+import { UserContext } from './UserContext';
 
 const SubmitReviewScreen = ({navigation, route}) => {
 
     const place = route.params;
-    const requestData = route.params;
+    const {inputs} = React.useContext(UserContext);
 
     const [submitReview, setSubmitReview] = React.useState({
         location_id: "",
@@ -27,6 +28,9 @@ const SubmitReviewScreen = ({navigation, route}) => {
         let valid = true;
         if(!submitReview.review) {
             handleError("Please input a review", "review");
+            valid = false;
+        } else if (user_id === null) {
+            handleError("Please sign up as a user before posting a review", "review");
             valid = false;
         } else if (valid) {
             submission();
@@ -47,7 +51,7 @@ const SubmitReviewScreen = ({navigation, route}) => {
         try {
             const requestReviewData = {
                 location_id: place.id,
-                user_id: requestData.id,
+                user_id: inputs,
                 review: submitReview.review,
             }
             await API.post("/user/newreview", requestReviewData);
