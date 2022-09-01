@@ -6,4 +6,6 @@ To run app,
 
 cd supperApp
 
+npm install; to install dependencies
+
 expo run start
