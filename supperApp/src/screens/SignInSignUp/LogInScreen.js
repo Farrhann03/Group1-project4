@@ -1,5 +1,5 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import React from 'react';
+import { useState ,useContext } from 'react';
 import { SafeAreaView, StyleSheet, ScrollView, Text, View, Alert, Keyboard } from "react-native";
 import COLORS from '../../consts/colors';
 import Input from '../SignInSignUp/components/Input';
@@ -7,21 +7,24 @@ import Button from '../SignInSignUp/components/Button';
 import Loader from '../SignInSignUp/components/Loader';
 import Icon from "react-native-vector-icons/MaterialIcons";
 import API from '../Api';
+import { UserContext } from '../UserContext';
 
 const LogInScreen = ({navigation}) => {
 
     //inputs for fields
-    const [inputs, setInputs] = React.useState({
-        username: "",
-        email: "",
-        password: "",
-    });
+    const {inputs, setInputs} = useContext(UserContext
+        // {
+        // username: "",
+        // email: "",
+        // password: "",
+        // }
+    );
 
     //input errors
-    const [errors, setErrors] = React.useState({});
+    const [errors, setErrors] = useState({});
 
     //handle loading 
-    const [loading, setLoading] = React.useState(false);
+    const [loading, setLoading] = useState(false);
 
     //To validate key fields
     const validate = () => {
@@ -40,6 +43,8 @@ const LogInScreen = ({navigation}) => {
             logIn();
         }
     };
+
+    console.log({inputs})
 
     // Local storage login testing
     // const logIn = () => {
@@ -72,9 +77,10 @@ const LogInScreen = ({navigation}) => {
                 password:inputs.password
             }
             const userData = await API.post("/login/signin", requestData);
-            console.log(requestData)
+            //console.log(requestData)
             //pass requestData as props to homescreen
             navigation.navigate("HomeScreen", requestData);
+            setInputs(userData.data.id);
             Alert.alert("Logged in successfully");
             console.log("Logged in successfully", JSON.stringify({...userData, loggedIn: true}));
         }catch(e){
