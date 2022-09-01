@@ -64,6 +64,8 @@ const SubmitReviewScreen = ({navigation, route}) => {
         }
         setLoading(false);
     };
+    // console.log(inputs)
+    // console.log(submitReview);
 
     console.log(place.id)
     console.log(inputs)

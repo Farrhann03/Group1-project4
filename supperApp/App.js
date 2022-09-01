@@ -17,9 +17,10 @@ import { UserContext } from './src/screens/UserContext';
 const Stack = createStackNavigator();
 
 const App = () => {
+
   const [inputs, setInputs] = useState(null);
   const value = useMemo(()=> ({inputs, setInputs}), [inputs, setInputs])
-  
+
   return (
     <UserContext.Provider value={value}>
     <NavigationContainer>
@@ -32,8 +33,6 @@ const App = () => {
         <Stack.Screen name="LogInScreen" component={LogInScreen} />
         <Stack.Screen name="FilterScreen" component={FilterScreen} />
         <Stack.Screen name="SubmitReviewScreen" component={SubmitReviewScreen} />
-
-
 
       </Stack.Navigator>
     </NavigationContainer>
