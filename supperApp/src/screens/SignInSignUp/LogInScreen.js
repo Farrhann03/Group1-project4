@@ -101,13 +101,13 @@ const LogInScreen = ({navigation}) => {
 
     return (
     <SafeAreaView style={styles.container}>
-        <Icon 
+        {/* <Icon 
           name="arrow-back-ios" 
           size={28} 
           color={COLORS.primary2} 
           onPress={() => navigation.navigate("HomeScreen")}
           style={{paddingLeft: 10}}
-        />
+        /> */}
         <Loader  visible={loading}/>
         <ScrollView contentContainerStyle={{paddingTop: 50, paddingHorizontal: 20,}}>
             <Text style={styles.textHeader}>Login</Text>

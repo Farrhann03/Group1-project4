@@ -29,9 +29,9 @@ const SubmitReviewScreen = ({navigation, route}) => {
         if(!submitReview.review) {
             handleError("Please input a review", "review");
             valid = false;
-        // } else if (inputs === null) {
-        //     handleError("Please sign up as a user before posting a review", "review");
-        //     valid = false;
+        } else if (inputs === null) {
+            handleError("Please sign up as a user before posting a review", "review");
+            valid = false;
         } else if (valid) {
             submission();
         }
