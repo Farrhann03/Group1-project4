@@ -1,5 +1,5 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { useState, useContext }from 'react';
+import { useState ,useContext } from 'react';
 import { SafeAreaView, StyleSheet, ScrollView, Text, View, Alert, Keyboard } from "react-native";
 import COLORS from '../../consts/colors';
 import Input from '../SignInSignUp/components/Input';
@@ -44,6 +44,8 @@ const LogInScreen = ({navigation}) => {
         }
     };
 
+    console.log({inputs})
+
     // Local storage login testing
     // const logIn = () => {
     //     setLoading(true);
@@ -75,10 +77,10 @@ const LogInScreen = ({navigation}) => {
                 password:inputs.password
             }
             const userData = await API.post("/login/signin", requestData);
-            console.log(requestData)
+            //console.log(requestData)
             //pass requestData as props to homescreen
             navigation.navigate("HomeScreen", requestData);
-            setInputs(userData.data.id)
+            setInputs(userData.data.id);
             Alert.alert("Logged in successfully");
             console.log("Logged in successfully", JSON.stringify({...userData, loggedIn: true}));
         }catch(e){
