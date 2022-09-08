@@ -154,7 +154,7 @@ const requestData = route.params
 const logOut = () => {
     API.post("/user/signout", requestData);
     AsyncStorage.setItem(
-        requestData,
+        "requestData",
         JSON.stringify({...requestData, loggedIn: false}),
     );
     setInputs('null');

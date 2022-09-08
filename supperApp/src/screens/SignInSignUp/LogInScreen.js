@@ -24,7 +24,7 @@ const LogInScreen = ({navigation}) => {
     const [errors, setErrors] = useState({});
 
     //handle loading 
-    const [loading, setLoading] = useState(false);
+    // const [loading, setLoading] = useState(false);
 
     //To validate key fields
     const validate = () => {
@@ -44,7 +44,7 @@ const LogInScreen = ({navigation}) => {
         }
     };
 
-    console.log({inputs})
+    //console.log({inputs})
 
     // Local storage login testing
     // const logIn = () => {
@@ -69,7 +69,7 @@ const LogInScreen = ({navigation}) => {
 
     //logIn function
     const logIn = async () => {
-        setLoading(true);
+        // setLoading(true);
         
         try{
             const requestData = {
@@ -87,7 +87,7 @@ const LogInScreen = ({navigation}) => {
             Alert.alert("Logged in failed");
             console.error("Logged in failed", JSON.stringify(e, {...userData, loggedIn: false}));
         }
-        setLoading(false);
+        // setLoading(false);
         
     };
 
@@ -110,7 +110,7 @@ const LogInScreen = ({navigation}) => {
           onPress={() => navigation.navigate("HomeScreen")}
           style={{paddingLeft: 10}}
         /> */}
-        <Loader  visible={loading}/>
+        {/* <Loader  visible={loading}/> */}
         <ScrollView contentContainerStyle={{paddingTop: 50, paddingHorizontal: 20,}}>
             <Text style={styles.textHeader}>Login</Text>
             <Text style={styles.textSubHeader}>Enter Login Details.</Text>
