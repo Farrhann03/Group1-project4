@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { useState, useContext } from 'react';
+import React from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { SafeAreaView, StyleSheet, ScrollView, Text, View, Alert } from "react-native";
 import COLORS from '../consts/colors';
@@ -12,25 +12,24 @@ import { UserContext } from './UserContext';
 
 const SubmitReviewScreen = ({navigation, route}) => {
 
-    //const record = route.params;
     const place = route.params;
-    const {inputs} = useContext(UserContext);
+    const {inputs} = React.useContext(UserContext);
 
-    const [submitReview, setSubmitReview] = useState({
-        location_id: place.id,
-        user_id: inputs,
+    const [submitReview, setSubmitReview] = React.useState({
+        location_id: "",
+        user_id: "",
         review: "",
     });
 
-    const [loading, setLoading] = useState(false);
-    const [errors, setErrors] = useState({});
+    const [loading, setLoading] = React.useState(false);
+    const [errors, setErrors] = React.useState({});
 
     const validate = () => {
         let valid = true;
         if(!submitReview.review) {
             handleError("Please input a review", "review");
             valid = false;
-        } else if (inputs === null) {
+        } else if (user_id === null) {
             handleError("Please sign up as a user before posting a review", "review");
             valid = false;
         } else if (valid) {
@@ -38,8 +37,8 @@ const SubmitReviewScreen = ({navigation, route}) => {
         }
     }
 
-    const handleOnChange = (text, input, inputs, location) => {
-        setSubmitReview((prevState) => ({...prevState, [input]: text}) );
+    const handleOnChange = (text, input) => {
+        setSubmitReview((prevState) => ({...prevState, [input]: text}));
     };
 
     const handleError = (errorMessage, input) => {
@@ -51,7 +50,6 @@ const SubmitReviewScreen = ({navigation, route}) => {
 
         try {
             const requestReviewData = {
-
                 location_id: place.id,
                 user_id: inputs,
                 review: submitReview.review,
@@ -63,12 +61,6 @@ const SubmitReviewScreen = ({navigation, route}) => {
         }
         setLoading(false);
     };
-    // console.log(inputs)
-    // console.log(submitReview);
-
-    console.log(place.id)
-    console.log(inputs)
-    console.log(submitReview)
 
     return (
         <SafeAreaView style={styles.container}>
