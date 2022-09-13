@@ -1,5 +1,5 @@
 import 'react-native-gesture-handler';
-import React, { useState, useMemo } from 'react';
+import React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import OnBoardScreen from './src/screens/OnBoardScreen';
@@ -12,17 +12,12 @@ import DetailsScreen from './src/screens/DetailsScreen';
 import FilterScreen from './src/screens/FilterScreen';
 import SubmitReviewScreen from './src/screens/SubmitReviewScreen';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { UserContext } from './src/screens/UserContext';
+
 
 const Stack = createStackNavigator();
 
 const App = () => {
-
-  const [inputs, setInputs] = useState(null);
-  const value = useMemo(() => ({inputs, setInputs}), [inputs, setInputs]);
-
   return (
-    <UserContext.Provider value={value}>
     <NavigationContainer>
       <Stack.Navigator screenOptions={{headerShown: false}}>
 
@@ -34,9 +29,10 @@ const App = () => {
         <Stack.Screen name="FilterScreen" component={FilterScreen} />
         <Stack.Screen name="SubmitReviewScreen" component={SubmitReviewScreen} />
 
+
+
       </Stack.Navigator>
     </NavigationContainer>
-    </UserContext.Provider>
   )
 }
 
