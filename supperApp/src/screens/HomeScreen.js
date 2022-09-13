@@ -1,11 +1,12 @@
-import { SafeAreaView, StatusBar, StyleSheet, View, ScrollView, Text, ImageBackground, FlatList, TextInput, Dimensions, Animated, Image } from "react-native";
+import { SafeAreaView, StatusBar, StyleSheet, Alert, View, ScrollView, Text, ImageBackground, FlatList, TextInput, Dimensions, Animated, Image } from "react-native";
 import Icon from "react-native-vector-icons/MaterialIcons";
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import React, { useRef, useEffect, useState } from "react";
+import React, { useRef, useEffect, useState, useContext } from "react";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import COLORS from "../consts/colors";
-import recommend from "../consts/recommended";
+//import recommend from "../consts/recommended";
 import API from "./Api";
+import { UserContext } from './UserContext';
 const {width} = Dimensions.get('screen');
 
 //route is passed as params
@@ -13,6 +14,7 @@ const HomeScreen = ({navigation, route}) => {
 
     const [places, setPlaces] = useState([]);
     const [name, setName] = useState("");
+    const {inputs, setInputs} = useContext(UserContext);
 
     useEffect(() => {
       API.get("/public/location")
@@ -137,26 +139,30 @@ const Card = ({place}) => {
  //route takes in paramaters passed from login
 const requestData = route.params
 
-const [userDetails, setUserDetails] = React.useState();
-React.useEffect(() => {
-    getUserDetails();
-}, []);
-const getUserDetails = async () => {
-    const userData = await API.get("/user", userDetails);
-    AsyncStorage.getItem('user');
-    if (userData) {
-        setUserDetails(requestData);
-    }
-};
+// const [userDetails, setUserDetails] = useState();
+// useEffect(() => {
+//     getUserDetails();
+// }, []);
+// const getUserDetails = async () => {
+//     const userData = await API.get("/user", userDetails);
+//     AsyncStorage.getItem('user');
+//     if (userData) {
+//         setUserDetails(requestData);
+//     }
+// };
 
 const logOut = () => {
     API.post("/user/signout", requestData);
     AsyncStorage.setItem(
-        'user',
-        JSON.stringify({...requestData, loggedIn: false}),
+        "null",
+        JSON.stringify({...requestData, loggedIn: false})
     );
-    navigation.navigate("LogInScreen");
+    setInputs('null');
+    Alert.alert("Logged out successfully");
+    navigation.push("LogInScreen");
 };
+
+console.log(inputs);
 
     return  <SafeAreaView style={{flex:1, backgroundColor: COLORS.primary2}}>
                 <StatusBar translucent={false} backgroundColor={COLORS.white}/>
