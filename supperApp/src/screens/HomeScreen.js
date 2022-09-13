@@ -1,4 +1,4 @@
-import { SafeAreaView, StatusBar, StyleSheet, Alert, View, ScrollView, Text, ImageBackground, FlatList, TextInput, Dimensions, Animated, Image } from "react-native";
+import { SafeAreaView, StatusBar, StyleSheet, View, ScrollView, Text, ImageBackground, FlatList, TextInput, Dimensions, Animated, Image } from "react-native";
 import Icon from "react-native-vector-icons/MaterialIcons";
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import React, { useRef, useEffect, useState, useContext } from "react";
@@ -154,11 +154,11 @@ const requestData = route.params
 const logOut = () => {
     API.post("/user/signout", requestData);
     AsyncStorage.setItem(
-        "null",
-        JSON.stringify({...requestData, loggedIn: false})
+        "requestData",
+        JSON.stringify({...requestData, loggedIn: false}),
     );
     setInputs('null');
-    Alert.alert("Logged out successfully");
+    console.log(requestData.data);
     navigation.push("LogInScreen");
 };
 
