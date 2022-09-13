@@ -137,17 +137,17 @@ const Card = ({place}) => {
  //route takes in paramaters passed from login
 const requestData = route.params
 
-// const [userDetails, setUserDetails] = React.useState();
-// React.useEffect(() => {
-//     getUserDetails();
-// }, []);
-// const getUserDetails = async () => {
-//     const userData = await API.get("/user", userDetails);
-//     AsyncStorage.getItem('user');
-//     if (userData) {
-//         setUserDetails(requestData);
-//     }
-// };
+const [userDetails, setUserDetails] = React.useState();
+React.useEffect(() => {
+    getUserDetails();
+}, []);
+const getUserDetails = async () => {
+    const userData = await API.get("/user", userDetails);
+    AsyncStorage.getItem('user');
+    if (userData) {
+        setUserDetails(requestData);
+    }
+};
 
 const logOut = () => {
     API.post("/user/signout", requestData);
