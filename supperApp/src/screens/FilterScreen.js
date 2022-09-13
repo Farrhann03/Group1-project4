@@ -34,7 +34,7 @@ const FilterScreen = ({ navigation, route }) => {
   const [isPriModalVisible, setisPriModalVisible] = useState(false);
 
   const [refreshing, setRefreshing] = useState(false);
-  //const place = route.params;
+  const place = route.params;
 
 
   const searchRecords = async () => {

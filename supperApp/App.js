@@ -1,5 +1,5 @@
 import 'react-native-gesture-handler';
-import React, {useState, useMemo} from 'react';
+import React, { useState, useMemo } from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import OnBoardScreen from './src/screens/OnBoardScreen';
@@ -19,7 +19,7 @@ const Stack = createStackNavigator();
 const App = () => {
 
   const [inputs, setInputs] = useState(null);
-  const value = useMemo(()=> ({inputs, setInputs}), [inputs, setInputs])
+  const value = useMemo(() => ({inputs, setInputs}), [inputs, setInputs]);
 
   return (
     <UserContext.Provider value={value}>

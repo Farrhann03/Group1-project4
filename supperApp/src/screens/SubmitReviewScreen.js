@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { useState, useContext } from 'react';
+import { useState, useContext }from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { SafeAreaView, StyleSheet, ScrollView, Text, View, Alert } from "react-native";
 import COLORS from '../consts/colors';
@@ -12,7 +12,6 @@ import { UserContext } from './UserContext';
 
 const SubmitReviewScreen = ({navigation, route}) => {
 
-    //const record = route.params;
     const place = route.params;
     const {inputs} = useContext(UserContext);
 
@@ -30,16 +29,16 @@ const SubmitReviewScreen = ({navigation, route}) => {
         if(!submitReview.review) {
             handleError("Please input a review", "review");
             valid = false;
-        } else if (inputs === null) {
-            handleError("Please sign up as a user before posting a review", "review");
-            valid = false;
+        // } else if (inputs === null) {
+        //     handleError("Please sign up as a user before posting a review", "review");
+        //     valid = false;
         } else if (valid) {
             submission();
         }
     }
 
-    const handleOnChange = (text, input, inputs, location) => {
-        setSubmitReview((prevState) => ({...prevState, [input]: text}) );
+    const handleOnChange = (text, input) => {
+        setSubmitReview((prevState) => ({...prevState, [input]: text}));
     };
 
     const handleError = (errorMessage, input) => {
@@ -51,7 +50,6 @@ const SubmitReviewScreen = ({navigation, route}) => {
 
         try {
             const requestReviewData = {
-
                 location_id: place.id,
                 user_id: inputs,
                 review: submitReview.review,
@@ -65,10 +63,6 @@ const SubmitReviewScreen = ({navigation, route}) => {
     };
     // console.log(inputs)
     // console.log(submitReview);
-
-    console.log(place.id)
-    console.log(inputs)
-    console.log(submitReview)
 
     return (
         <SafeAreaView style={styles.container}>
