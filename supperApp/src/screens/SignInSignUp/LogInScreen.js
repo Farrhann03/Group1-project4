@@ -24,7 +24,7 @@ const LogInScreen = ({navigation}) => {
     const [errors, setErrors] = useState({});
 
     //handle loading 
-    // const [loading, setLoading] = useState(false);
+    const [loading, setLoading] = useState(false);
 
     //To validate key fields
     const validate = () => {
@@ -69,7 +69,7 @@ const LogInScreen = ({navigation}) => {
 
     //logIn function
     const logIn = async () => {
-        // setLoading(true);
+        setLoading(true);
         
         try{
             const requestData = {
@@ -87,7 +87,7 @@ const LogInScreen = ({navigation}) => {
             Alert.alert("Logged in failed");
             console.error("Logged in failed", JSON.stringify(e, {...userData, loggedIn: false}));
         }
-        // setLoading(false);
+        setLoading(false);
         
     };
 
@@ -101,6 +101,7 @@ const LogInScreen = ({navigation}) => {
         setErrors((prevState) => ({...prevState, [input]: errorMessage}));
     };
 
+    //console.log(inputs)
     return (
     <SafeAreaView style={styles.container}>
         {/* <Icon 
