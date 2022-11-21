@@ -69,23 +69,23 @@ const LogInScreen = ({navigation}) => {
 
     //logIn function
     const logIn = async () => {
-        setLoading(true);
+        //setLoading(true);
         
         try{
             const requestData = {
-                username:inputs.username,
-                password:inputs.password
+                username: inputs.username,
+                password: inputs.password,
             }
             const userData = await API.post("/login/signin", requestData);
             //console.log(requestData)
-            //pass requestData as props to homescreen
+            // pass requestData as props to homescreen
             navigation.navigate("HomeScreen", requestData);
-            setInputs(userData.data.id);
+            //setInputs(userData.data.id);
             Alert.alert("Logged in successfully");
             console.log("Logged in successfully", JSON.stringify({...userData, loggedIn: true}));
         }catch(e){
             Alert.alert("Logged in failed");
-            console.error("Logged in failed", JSON.stringify(e, {...userData, loggedIn: false}));
+            //console.error("Logged in failed");
         }
         setLoading(false);
         
@@ -101,7 +101,8 @@ const LogInScreen = ({navigation}) => {
         setErrors((prevState) => ({...prevState, [input]: errorMessage}));
     };
 
-    //console.log(inputs)
+    console.log(inputs)
+    
     return (
     <SafeAreaView style={styles.container}>
         {/* <Icon 
@@ -111,13 +112,13 @@ const LogInScreen = ({navigation}) => {
           onPress={() => navigation.navigate("HomeScreen")}
           style={{paddingLeft: 10}}
         /> */}
-        {/* <Loader  visible={loading}/> */}
+        <Loader  visible={loading}/>
         <ScrollView contentContainerStyle={{paddingTop: 50, paddingHorizontal: 20,}}>
             <Text style={styles.textHeader}>Login</Text>
             <Text style={styles.textSubHeader}>Enter Login Details.</Text>
             <View style={{marginVertical: 20}}>
                 <Input placeholder="Enter your username" iconName="account-outline" label="Username" error={errors.username} onFocus={() => { handleError(null, "username");}} onChangeText={(text) => handleOnChange(text, 'username')}/>
-                <Input placeholder="Enter your password" iconName="lock-outline" label="Password" error={errors.password} onFocus={() => { handleError(null, "password");}} onChangeText={(text) => handleOnChange(text, 'password')} password />
+                <Input placeholder="Enter your password" iconName="lock-outline" label="Password" error={errors.password} onFocus={() => { handleError(null, "password");}} onChangeText={(text) => handleOnChange(text, 'password')} password/>
                 <Button  title="Login" onPress={validate} />
                 <Text>
                     <Text style={styles.loginsubText}>Yet to create an account?</Text>
