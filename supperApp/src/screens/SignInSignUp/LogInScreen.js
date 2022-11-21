@@ -69,7 +69,7 @@ const LogInScreen = ({navigation}) => {
 
     //logIn function
     const logIn = async () => {
-        //setLoading(true);
+        setLoading(true);
         
         try{
             const requestData = {
