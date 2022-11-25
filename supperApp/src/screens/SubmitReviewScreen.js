@@ -66,10 +66,6 @@ const SubmitReviewScreen = ({navigation, route}) => {
     // console.log(inputs)
     // console.log(submitReview);
 
-    console.log(place.id)
-    console.log(inputs)
-    console.log(submitReview)
-
     return (
         <SafeAreaView style={styles.container}>
             <Icon 

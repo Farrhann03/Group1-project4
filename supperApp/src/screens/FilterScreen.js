@@ -34,7 +34,6 @@ const FilterScreen = ({ navigation }) => {
   const [isPriModalVisible, setisPriModalVisible] = useState(false);
 
   const [refreshing, setRefreshing] = useState(false);
-;
 
 
   const searchRecords = async () => {
@@ -136,7 +135,7 @@ const FilterScreen = ({ navigation }) => {
           name="arrow-back-ios"
           size={28}
           color={COLORS.white}
-          onPress={() => navigation.navigate("HomeScreen")}
+          onPress={navigation.goBack}
           style={{ paddingLeft: 5, paddingTop: 10 }}
         />
         
