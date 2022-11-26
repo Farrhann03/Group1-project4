@@ -70,13 +70,13 @@ const FilterScreen = ({ navigation }) => {
     
   };
 
-  const onRefresh = () => {
-    setRefreshing(true);
+  // const onRefresh = () => {
+  //   setRefreshing(true);
 
-    setTimeout(() => {
-      setRefreshing(false)
-    }, 2000) 
-  }
+  //   setTimeout(() => {
+  //     setRefreshing(false)
+  //   }, 2000) 
+  // }
   
   console.log(record)
 
@@ -212,7 +212,7 @@ const FilterScreen = ({ navigation }) => {
           />
           <View>
             <Button title="Search" onPress={searchRecords}/>
-            <Text style={style.footer}>Pull down to see RefreshControl indicator</Text>
+            {/* <Text style={style.footer}>Pull down to see RefreshControl indicator</Text> */}
           </View>
 
 
