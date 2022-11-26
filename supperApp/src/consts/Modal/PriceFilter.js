@@ -9,7 +9,7 @@ import {
 } from "react-native";
 import COLORS from "../colors";
 
-const PRICE = [ 'cheap', 'moderate' , 'expensive'];
+const PRICE = ["cheap", "moderate", "expensive"];
 const WIDTH = Dimensions.get("window").width;
 const HEIGHT = Dimensions.get("window").height;
 
