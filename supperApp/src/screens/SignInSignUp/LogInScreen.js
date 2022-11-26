@@ -80,7 +80,7 @@ const LogInScreen = ({navigation}) => {
             //console.log(requestData)
             // pass requestData as props to homescreen
             navigation.navigate("HomeScreen", requestData);
-            //setInputs(userData.data.id);
+            setInputs(userData.data.id);
             Alert.alert("Logged in successfully");
             console.log("Logged in successfully", JSON.stringify({...userData, loggedIn: true}));
         }catch(e){
