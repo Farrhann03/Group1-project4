@@ -34,7 +34,6 @@ const FilterScreen = ({ navigation }) => {
   const [isPriModalVisible, setisPriModalVisible] = useState(false);
 
   const [refreshing, setRefreshing] = useState(false);
-;
 
 
   const searchRecords = async () => {
@@ -71,13 +70,13 @@ const FilterScreen = ({ navigation }) => {
     
   };
 
-  const onRefresh = () => {
-    setRefreshing(true);
+  // const onRefresh = () => {
+  //   setRefreshing(true);
 
-    setTimeout(() => {
-      setRefreshing(false)
-    }, 2000) 
-  }
+  //   setTimeout(() => {
+  //     setRefreshing(false)
+  //   }, 2000) 
+  // }
   
   console.log(record)
 
@@ -136,7 +135,7 @@ const FilterScreen = ({ navigation }) => {
           name="arrow-back-ios"
           size={28}
           color={COLORS.white}
-          onPress={() => navigation.navigate("HomeScreen")}
+          onPress={navigation.goBack}
           style={{ paddingLeft: 5, paddingTop: 10 }}
         />
         
@@ -213,7 +212,7 @@ const FilterScreen = ({ navigation }) => {
           />
           <View>
             <Button title="Search" onPress={searchRecords}/>
-            <Text style={style.footer}>Pull down to see RefreshControl indicator</Text>
+            {/* <Text style={style.footer}>Pull down to see RefreshControl indicator</Text> */}
           </View>
 
 
